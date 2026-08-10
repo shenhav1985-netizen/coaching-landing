@@ -342,10 +342,6 @@ export default function Home() {
               תוכנית &quot;21 יום&quot;, אלא שיטה יציבה שמנתקת את התלות מאוכל מהשורש —
               ומחזיקה כל החיים.
             </p>
-            <AccentLine />
-            <p className="italic font-bold" style={{ color: "var(--accent-dark)" }}>
-              — שנהב
-            </p>
           </GlassCard>
         </Reveal>
       </section>

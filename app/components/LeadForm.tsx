@@ -135,6 +135,27 @@ export default function LeadForm() {
         <p className="text-xs text-center" style={{ color: "var(--text-muted)" }}>
           לאחר מילוי הטופס אחזור אליך לשיחה קלילה, בחינם וללא התחייבות, כדי לבדוק אם התהליך מתאים לך בשלב הזה.
         </p>
+
+        <div className="flex items-center gap-3 mt-1">
+          <div className="h-px flex-1" style={{ background: "var(--border-subtle)" }} />
+          <span className="text-xs" style={{ color: "var(--text-muted)" }}>
+            או
+          </span>
+          <div className="h-px flex-1" style={{ background: "var(--border-subtle)" }} />
+        </div>
+
+        <a
+          href="https://wa.me/972506409478?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%94%D7%9C%D7%99%D7%95%D7%95%D7%99%20%D7%94%D7%90%D7%99%D7%A9%D7%99"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 rounded-2xl font-bold py-3.5 px-6 text-base transition-transform hover:scale-[1.02]"
+          style={{
+            background: "#25D366",
+            color: "#fff",
+          }}
+        >
+          שלחי לי הודעה בוואטסאפ
+        </a>
       </form>
     </GlassCard>
   );

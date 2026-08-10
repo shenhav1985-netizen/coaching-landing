@@ -243,13 +243,7 @@ export default function Home() {
         </Reveal>
 
         <Reveal>
-          <p className="mt-8 mb-4 font-extrabold" style={{ color: "var(--accent-dark)" }}>
-            להגשת מועמדות לתוכנית הליווי האישי — מלאי פרטים ולחצי על אישור
-          </p>
-        </Reveal>
-
-        <Reveal>
-          <div className="mt-4 mx-auto" style={{ maxWidth: "460px" }}>
+          <div className="mt-8 mx-auto" style={{ maxWidth: "460px" }}>
             <LeadForm />
           </div>
         </Reveal>
@@ -509,24 +503,7 @@ export default function Home() {
       <section id="register-final" className="relative px-6 py-16 max-w-3xl mx-auto text-center">
         <AmbientGlow top="40%" left="50%" size={650} opacity={0.07} />
         <Reveal>
-          <h2
-            className="font-extrabold"
-            style={{ fontSize: "clamp(1.6rem, 1.3rem + 1.2vw, 2.25rem)", color: "var(--text-primary)" }}
-          >
-            להגשת מועמדות לתוכנית{" "}
-            <span style={{ color: "var(--accent-dark)" }}>הליווי האישי</span>
-          </h2>
-        </Reveal>
-        <Reveal>
-          <p className="mt-4" style={{ color: "var(--text-secondary)" }}>
-            מלאי פרטים ולחצי על אישור. אחזור אליך לשיחה קלילה,{" "}
-            <b style={{ color: "var(--text-primary)" }}>בחינם וללא התחייבות</b>, כדי לבדוק
-            אם התהליך מתאים לך בשלב הזה.
-          </p>
-        </Reveal>
-
-        <Reveal>
-          <div className="mt-8 mx-auto" style={{ maxWidth: "460px" }}>
+          <div className="mx-auto" style={{ maxWidth: "460px" }}>
             <LeadForm />
           </div>
         </Reveal>

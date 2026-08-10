@@ -80,7 +80,7 @@ export default function Home() {
                 alt="שנהב בנימין — מאמנת תזונה מנטלית"
                 fill
                 sizes="360px"
-                style={{ objectFit: "cover" }}
+                style={{ objectFit: "cover", objectPosition: "center 75%" }}
                 priority
               />
             </div>

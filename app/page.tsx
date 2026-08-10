@@ -1,69 +1,558 @@
 import Image from "next/image";
+import LeadForm from "./components/LeadForm";
+import {
+  GlassCard,
+  AccentLine,
+  AccentDivider,
+  AmbientGlow,
+  CTAButton,
+  SectionHook,
+  Reveal,
+} from "./components/ui";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <main className="relative overflow-hidden" style={{ background: "var(--bg-primary)" }}>
+      {/* NAV */}
+      <header className="relative z-10 flex items-center justify-between px-6 py-6 max-w-5xl mx-auto w-full">
+        <span className="font-extrabold text-lg" style={{ color: "var(--text-primary)" }}>
+          שנהב בנימין
+        </span>
+        <span className="text-sm hidden sm:block" style={{ color: "var(--text-muted)" }}>
+          מאמנת תזונה מנטלית · ליווי אישי 1:1
+        </span>
+      </header>
+
+      {/* HERO */}
+      <section className="relative px-6 pt-6 pb-20 max-w-5xl mx-auto text-center">
+        <AmbientGlow top="10%" left="50%" size={700} opacity={0.08} />
+
+        <Reveal>
+          <h1
+            className="font-extrabold leading-tight mx-auto"
+            style={{
+              fontSize: "clamp(2.1rem, 1.6rem + 2.5vw, 3.75rem)",
+              maxWidth: "820px",
+              color: "var(--text-primary)",
+            }}
+          >
+            התחנה הסופית לנשים שעייפות ממאבק בירידה במשקל —{" "}
+            <span style={{ color: "var(--accent-dark)" }}>ורוצות לבנות אורח חיים יציב בראש שקט</span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+        </Reveal>
+
+        <Reveal>
+          <p
+            className="mt-6 mx-auto"
+            style={{
+              fontSize: "clamp(1.05rem, 1rem + 0.4vw, 1.25rem)",
+              maxWidth: "680px",
+              color: "var(--text-secondary)",
+            }}
+          >
+            תוך 10 שבועות אנחנו מנתקות מהשורש את התלות באוכל — עד שאת יוצאת מהלופ של
+            דיאטות ומאבק במשקל, ומעניקה לעצמך שגרת תזונה חופשית ויציבה שעובדת מבפנים
+            ומחזירה לך <b>סדר, קלילות ושקט</b> — בעזרת שיטה מנטלית לשחרור דפוסי מחשבה
+            שעבדה לאלפי נשים.
           </p>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-4 font-bold" style={{ color: "var(--accent-dark)" }}>
+            מזינות את הגוף והראש, בלי להישחק ובלי להתחיל מחדש כל שבוע.
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <div className="mt-10 mx-auto relative" style={{ width: "min(360px, 80vw)" }}>
+            <div
+              className="relative rounded-[28px] overflow-hidden"
+              style={{
+                border: "1.5px solid var(--border-accent)",
+                boxShadow: "0 0 50px rgba(185,138,120,0.18), 0 20px 60px rgba(64,51,44,0.15)",
+                aspectRatio: "4 / 5",
+              }}
+            >
+              {/* TODO: replace with the real photo at public/images/coach.jpg */}
+              <Image
+                src="/images/coach.jpg"
+                alt="שנהב בנימין — מאמנת תזונה מנטלית"
+                fill
+                sizes="360px"
+                style={{ objectFit: "cover" }}
+                priority
+              />
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal>
+          <div className="mt-10">
+            <CTAButton text="אני רוצה לבדוק שהתהליך מתאים לי" />
+          </div>
+        </Reveal>
+      </section>
+
+      <AccentDivider />
+
+      {/* NO MORE */}
+      <section className="relative px-6 py-14 max-w-3xl mx-auto text-center">
+        <Reveal>
+          <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            לא עוד תהליך שמתחיל בהתלהבות ונגמר בעייפות.
+            <br />
+            לא עוד ליווי שדורש ממך להיות <b style={{ color: "var(--text-primary)" }}>&quot;חזקה&quot;</b>,{" "}
+            <b style={{ color: "var(--text-primary)" }}>&quot;ממושמעת&quot;</b> או{" "}
+            <b style={{ color: "var(--text-primary)" }}>&quot;יותר בעניין&quot;</b> — ולא עוד הבטחה לשינוי
+            חיצוני שמתרסק על החיים האמיתיים שלך באמצע שבוע עמוס.
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-6" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            הגיע הזמן לנצח את דפוסי האכילה — ולבנות הרגלים חדשים מהשורש, שעובדים
+            בשבילך גם כשאין לך כוח, זמן או חשק.
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <GlassCard accent className="mt-8" style={{ maxWidth: "640px", margin: "0 auto" }}>
+            <p className="font-bold text-lg" style={{ color: "var(--text-primary)" }}>
+              תהליך אחד מדויק שמחזיק שגרה, נראות חיצונית ואורח חיים — לאורך זמן.
+            </p>
+          </GlassCard>
+        </Reveal>
+      </section>
+
+      <AccentDivider />
+
+      {/* REALITY AFTER */}
+      <section className="relative px-6 py-14 max-w-3xl mx-auto text-center">
+        <Reveal>
+          <SectionHook>איך נראית המציאות שלך אחרי שהמאבק נגמר?</SectionHook>
+        </Reveal>
+        <Reveal>
+          <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            ששששקט. אין דרמות סביב אוכל. אין חשיבה אובססיבית ואין החלטות אינסופיות.
+            <br />
+            יש סדר, פשטות וביטחון מלא במה שנכנס לגוף — ביום רגיל, לא ביום מושלם.
+          </p>
+        </Reveal>
+
+        <div className="mt-10 flex flex-col gap-6 text-right">
+          <Reveal>
+            <GlassCard>
+              <p className="font-extrabold mb-2" style={{ color: "var(--accent-dark)" }}>
+                יותר קלילות
+              </p>
+              <p style={{ color: "var(--text-secondary)" }}>
+                הגוף נרגע. האכילה מפסיקה להיות מאבק יומיומי. את לא &quot;בדיאטה&quot; ולא
+                &quot;נשברת&quot; — את פשוט חיה בתוך שגרה עם הרגלים שעובדים בשבילך.
+              </p>
+            </GlassCard>
+          </Reveal>
+          <Reveal>
+            <GlassCard>
+              <p className="font-extrabold mb-2" style={{ color: "var(--accent-dark)" }}>
+                יותר שליטה
+              </p>
+              <p style={{ color: "var(--text-secondary)" }}>
+                לא דרך איסורים ולא דרך כוח רצון, אלא דרך שיטה ברורה שמחזיקה גם בשבוע
+                עמוס, גם בעייפות וגם בחיים עצמם.
+              </p>
+            </GlassCard>
+          </Reveal>
+          <Reveal>
+            <GlassCard>
+              <p className="font-extrabold mb-2" style={{ color: "var(--accent-dark)" }}>
+                יותר ביטחון בעצמך
+              </p>
+              <p style={{ color: "var(--text-secondary)" }}>
+                את יוצרת סמכות פנימית שמותאמת אישית לך, ואין תוכנית שאת צריכה להיצמד
+                אליה. במקום לשאול שוב &quot;למה זה לא מחזיק אצלי&quot; — יש לך הרגלים
+                חדשים שמקרינים על כל תחומי החיים.
+              </p>
+            </GlassCard>
+          </Reveal>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <Reveal>
+          <p className="mt-8" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            יש לך שיטה בוגרת. אחראית. יציבה ואנושית.
+            <br />
+            כזו שלא מבטיחה קסמים — אלא מסיימת מאבק.
+          </p>
+        </Reveal>
+      </section>
+
+      <AccentDivider />
+
+      {/* QUALIFYING / MIRROR */}
+      <section className="relative px-6 py-14 max-w-3xl mx-auto text-center">
+        <Reveal>
+          <SectionHook>ככה שאם את...</SectionHook>
+        </Reveal>
+        <Reveal>
+          <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            אישה חכמה, מתפקדת ועמוסה, שכבר ניסתה &quot;להסתדר עם אוכל&quot; בכל דרך
+            אפשרית: דיאטות, שיטות, השראה, משמעות, ימי ראשון עם כוונות.
+          </p>
+        </Reveal>
+        <Reveal>
+          <p className="mt-6 font-bold" style={{ color: "var(--text-primary)" }}>
+            אבל...
+          </p>
+        </Reveal>
+        <Reveal>
+          <p className="mt-4" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            בפועל ממשיכה להרגיש שהתזונה גוזלת ממך אנרגיה במקום להחזיר אותה — אנחנו
+            כאן כדי לסגור לך את הפינה הזאת אחת ולתמיד.
+          </p>
+        </Reveal>
+
+        <div className="mt-8 flex flex-col gap-3 text-right" style={{ color: "var(--text-secondary)", fontSize: "1.05rem", lineHeight: 1.9 }}>
+          <Reveal>
+            <p>אם את מצליחה במיליון תחומי חיים... אבל לא מרוצה מהנראות, והרבה יותר עייפה מהמאבק בתזונה.</p>
+          </Reveal>
+          <Reveal>
+            <p>אם הראש שלך תפוס באוכל והחלטות הרבה יותר ממה שהיית רוצה להודות...</p>
+          </Reveal>
+          <Reveal>
+            <p>
+              ואם עמוק בפנים את יודעת שמה שחסר לך זה לא עוד ידע — אלא שיטה בוגרת,
+              יציבה ואישית, כזו שעובדת גם כשעמוס, גם כשאת עייפה ו&quot;שלא בא לך&quot; —
+              זה המקום שלך.
+            </p>
+          </Reveal>
         </div>
-      </main>
-    </div>
+
+        <Reveal>
+          <p className="mt-8" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            ואם נמאס לך להרגיש שכל שינוי מחזיק שבוע-שבועיים ומתפרק לך בחיים
+            האמיתיים, ואת לא מחפשת להיות &quot;מושלמת&quot; אלא רגועה — וחשוב לך לבנות
+            אורח חיים עם תזונה שמתאימה לאופי שלך, ולא זירת מאבק —
+          </p>
+        </Reveal>
+      </section>
+
+      <AccentDivider />
+
+      {/* PERSONAL OFFER + FIRST CTA */}
+      <section id="offer" className="relative px-6 py-16 max-w-3xl mx-auto text-center">
+        <AmbientGlow top="30%" left="50%" size={600} opacity={0.06} />
+        <Reveal>
+          <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            בתהליך הליווי האישי שלי אני לוקחת אותך <b style={{ color: "var(--text-primary)" }}>1:1</b> לבניית
+            שגרת תזונה אישית, יציבה, מותאמת וארוכת טווח — בלי דיאטות, בלי כוח רצון,
+            ובלי להתחיל מחדש כל כמה ימים.
+          </p>
+        </Reveal>
+        <Reveal>
+          <p className="mt-6 font-bold" style={{ color: "var(--text-primary)", fontSize: "1.15rem", lineHeight: 1.9 }}>
+            זה לא תהליך שמעמיס ולא מסע של הוכחות. זאת התחנה הסופית למי שרוצה שהאוכל
+            יפסיק לנהל לה את החיים — ויתחיל סוף-סוף לשרת אותם.
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-8 mb-4 font-extrabold" style={{ color: "var(--accent-dark)" }}>
+            להגשת מועמדות לתוכנית הליווי האישי — מלאי פרטים ולחצי על אישור
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <div className="mt-4 mx-auto" style={{ maxWidth: "460px" }}>
+            <LeadForm />
+          </div>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-6 text-sm" style={{ color: "var(--text-muted)" }}>
+            * חשוב לדעת: אני מלווה את כולן בעצמי, יד ביד, ולוקחת רק{" "}
+            <b style={{ color: "var(--accent-dark)" }}>5 נשים בחודש</b>.
+          </p>
+        </Reveal>
+      </section>
+
+      <AccentDivider />
+
+      {/* SOCIAL PROOF PLACEHOLDER */}
+      <section className="relative px-6 py-14 max-w-4xl mx-auto text-center">
+        <Reveal>
+          <SectionHook>מה נשים אחרות אומרות</SectionHook>
+        </Reveal>
+        <Reveal>
+          <GlassCard
+            className="mt-6"
+            style={{
+              maxWidth: "700px",
+              margin: "0 auto",
+              border: "1.5px dashed rgba(169,136,122,0.4)",
+            }}
+          >
+            {/* TODO: replace with real testimonials / screenshots once supplied */}
+            <p style={{ color: "var(--text-muted)" }}>
+              מקום שמור להוכחה חברתית — המלצות, תוצאות ותגובות אמיתיות של מלוות
+              בתהליך. נשלב כאן ברגע שיישלח החומר.
+            </p>
+          </GlassCard>
+        </Reveal>
+      </section>
+
+      <AccentDivider />
+
+      {/* WHY / AUTHORITY STORY */}
+      <section className="relative px-6 py-16 max-w-3xl mx-auto text-center">
+        <Reveal>
+          <h2
+            className="font-extrabold"
+            style={{ fontSize: "clamp(1.6rem, 1.3rem + 1.2vw, 2.25rem)", color: "var(--text-primary)" }}
+          >
+            כאן מסתיים המאבק: <span style={{ color: "var(--accent-dark)" }}>תזונה שלא צריכה משמעת</span>
+          </h2>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-6" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            דמייני מציאות שבה האוכל כבר לא תופס מקום בראש. אין מחשבות חוזרות ואין
+            התלבטות אינסופית. יש שגרה שעובדת, גוף רגוע ותחושה ברורה שזה סוף הסיפור.
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-8 font-bold" style={{ color: "var(--text-primary)" }}>
+            עכשיו בואי נדבר אמת:
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-4" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            זה לא קרה עד היום כי &quot;לא רצית מספיק&quot;, ולא כי חסרה לך משמעת, ידע או
+            כוח רצון. וזה גם לא יקרה דרך עוד דיאטה, עוד תפריט או עוד גורו אינסטגרם
+            שמבטיח שינוי — שנעלם כשהוא פוגש את החיים.
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-6" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            בגלל שנמאס לי לראות נשים נלחמות בגוף שלהן... ונמאס לי מתעשייה שלמה
+            שמוכרת כוח רצון, איסורים ותקוות — ומשאירה אחריה עייפות, אשמה והתחלות
+            כושלות — החלטתי להרים את הכפפה ולבנות תהליך פרימיום אישי אחר לגמרי.
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-6" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            לא דיאטה שמחזיקה שבוע ולא &quot;שיטה&quot; שמתרסקת ביומיום. ובטח שבלי הבטחות
+            לנראות בלי לשאול איך החיים שלך נראים אחר כך.
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <GlassCard accent className="mt-8" style={{ maxWidth: "640px", margin: "0 auto" }}>
+            <p style={{ color: "var(--text-primary)" }}>
+              ככה נוצר תהליך עומק בתזונה — מבוסס גוף, הרגלים ותודעה. לא דיאטה ולא
+              תוכנית &quot;21 יום&quot;, אלא שיטה יציבה שמנתקת את התלות מאוכל מהשורש —
+              ומחזיקה כל החיים.
+            </p>
+            <AccentLine />
+            <p className="italic font-bold" style={{ color: "var(--accent-dark)" }}>
+              — שנהב
+            </p>
+          </GlassCard>
+        </Reveal>
+      </section>
+
+      <AccentDivider />
+
+      {/* FOUNDATIONS */}
+      <section className="relative px-6 py-14 max-w-3xl mx-auto text-center">
+        <Reveal>
+          <SectionHook>אז מה את מקבלת בפנים?</SectionHook>
+        </Reveal>
+        <Reveal>
+          <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            את מקבלת את היסודות שכל אישה חייבת לשלוט בהם כדי שהתזונה תפסיק להיות
+            מאבק:
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <GlassCard className="mt-8 text-right" style={{ maxWidth: "560px", margin: "0 auto" }}>
+            <ul className="flex flex-col gap-3" style={{ color: "var(--text-secondary)", fontSize: "1.05rem" }}>
+              {[
+                "ויסות גוף רעב",
+                "הרגלים שעובדים גם בעומס",
+                "סדר תזונתי בלי אובססיה",
+                "שקט מנטלי סביב אוכל",
+                "יישום אישי בעולם האמיתי (ולא במעבדה)",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span style={{ color: "var(--accent-dark)" }}>●</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </GlassCard>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-8 font-bold" style={{ color: "var(--text-primary)", fontSize: "1.15rem" }}>
+            זאת לא תיאוריה. זאת מיומנות.
+          </p>
+        </Reveal>
+      </section>
+
+      <AccentDivider />
+
+      {/* OUTCOMES AFTER 10 WEEKS */}
+      <section className="relative px-6 py-14 max-w-3xl mx-auto text-center">
+        <Reveal>
+          <SectionHook>אחרי 10 שבועות את הולכת לדעת בדיוק:</SectionHook>
+        </Reveal>
+
+        <Reveal>
+          <GlassCard accent className="mt-6 text-right" style={{ maxWidth: "620px", margin: "0 auto" }}>
+            <ul className="flex flex-col gap-3" style={{ color: "var(--text-secondary)", fontSize: "1.05rem" }}>
+              {[
+                "איך לאכול בלי לחשוב על זה כל היום",
+                "איך לבנות שגרה שמחזיקה גם כשאת עייפה",
+                "איך לזהות רעב אמיתי לעומת רעב רגשי",
+                "איך לעצור לופים של אכילה, אשמה ופיצוי",
+                "ואיך להחזיר שליטה רגועה — בלי מלחמה",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span style={{ color: "var(--accent-dark)" }}>✓</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </GlassCard>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-8" style={{ color: "var(--text-secondary)", fontSize: "1.1rem" }}>
+            וכל זה — בלי תפריטים נוקשים ובלי &quot;מה מותר ומה אסור&quot;.
+          </p>
+        </Reveal>
+      </section>
+
+      <AccentDivider />
+
+      {/* MECHANISM */}
+      <section className="relative px-6 py-16 max-w-3xl mx-auto text-center">
+        <Reveal>
+          <SectionHook>הצצה למנגנון התהליך האישי</SectionHook>
+        </Reveal>
+        <Reveal>
+          <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            ב-10 שבועות אנחנו מתקינות לך מערכת הפעלה חדשה. מפרקות את ההתניות
+            הישנות ובונות את מערכת היחסים שלך עם הגוף — ככה שהתוצאה היא לא רק
+            ירידה במשקל, אלא חופש מנטלי אמיתי.
+          </p>
+        </Reveal>
+
+        <div className="mt-10 flex flex-col gap-6 text-right">
+          {[
+            {
+              title: "מכבות את הרעש בראש",
+              body: "מפרידות בין 'מי שאת' לבין 'הקול הרעב' שמנהל אותך, כך שהדיאלוג הפנימי המתיש נפסק ואת חוזרת לשמוע את עצמך.",
+              result: "0% מאבק, 100% שקט",
+            },
+            {
+              title: "נטרול הטריגרים הרגשיים",
+              body: "נמפה את 'הכפתורים' שמפעילים אצלך אכילה (עייפות, עצבים, בדידות) ומנתקות את החיווט האוטומטי ששולח אותך למקרר, ככה שהאכילה מפסיקה להיות פיצוי.",
+              result: "שליטה מלאה ללא כוח רצון",
+            },
+            {
+              title: "להעיר את המנכ\"לית שבפנים",
+              body: "נעביר את המושכות מהדחפים והרגשות, לשכל ולשיקול הדעת, ונבנה אצלך סמכות פנימית שיודעת לקבל החלטות גם מול הפיתוי הכי גדול.",
+              result: "ביטחון עצמי בלתי שביר",
+            },
+            {
+              title: "לצרוב זהות חדשה של אישה חופשייה",
+              body: "נעשה מעבר מנטלי מאישה ש'נלחמת במשקל' לאישה ש'המשקל לא מעסיק אותה', דרך שינויי דפוסי חשיבה עמוקים שמשפיעים על איך שאת רואה את עצמך בעולם.",
+              result: "שינוי שלא דורש תחזוקה מתישה",
+            },
+            {
+              title: "בניית שגרת חיים חסינה",
+              body: "תטמיעי הרגלים גמישים שעובדים בשבילך גם בימים הכי לחוצים, בחופשות ובמשברים, כדי שלא תצטרכי להיות 'מושלמת' בשביל לראות תוצאות.",
+              result: "יציבות בכל סיטואציה",
+            },
+          ].map((step, i) => (
+            <Reveal key={step.title}>
+              <GlassCard>
+                <p className="font-extrabold mb-2" style={{ color: "var(--accent-dark)" }}>
+                  {i + 1}. {step.title}
+                </p>
+                <p style={{ color: "var(--text-secondary)" }}>{step.body}</p>
+                <p className="mt-3 font-bold" style={{ color: "var(--text-primary)" }}>
+                  ← {step.result}
+                </p>
+              </GlassCard>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <AccentDivider />
+
+      {/* TRUTH QUOTE */}
+      <section className="relative px-6 py-14 max-w-3xl mx-auto text-center">
+        <Reveal>
+          <SectionHook>תביני:</SectionHook>
+        </Reveal>
+        <Reveal>
+          <GlassCard accent style={{ maxWidth: "640px", margin: "0 auto" }}>
+            <p style={{ color: "var(--text-primary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+              אי אפשר לפתור בעיה רגשית עם פתרון טכני כמו ספירת קלוריות.
+              <br />
+              זה כמו לנסות לכבות שריפה עם מחשבון.
+            </p>
+            <AccentLine />
+            <p style={{ color: "var(--text-secondary)", fontSize: "1.05rem", lineHeight: 1.9 }}>
+              המנגנון הזה הוא הפעם הראשונה שבה את מפסיקה לטפל בסימפטום (המשקל)
+              ומתחילה לטפל בדפוס המנטלי.
+              <br />
+              כי ברגע שהראש משתחרר... הגוף מפסיק לאגור את מה שהוא לא צריך.
+            </p>
+          </GlassCard>
+        </Reveal>
+      </section>
+
+      <AccentDivider />
+
+      {/* FINAL CTA */}
+      <section id="register-final" className="relative px-6 py-16 max-w-3xl mx-auto text-center">
+        <AmbientGlow top="40%" left="50%" size={650} opacity={0.07} />
+        <Reveal>
+          <h2
+            className="font-extrabold"
+            style={{ fontSize: "clamp(1.6rem, 1.3rem + 1.2vw, 2.25rem)", color: "var(--text-primary)" }}
+          >
+            להגשת מועמדות לתוכנית{" "}
+            <span style={{ color: "var(--accent-dark)" }}>הליווי האישי</span>
+          </h2>
+        </Reveal>
+        <Reveal>
+          <p className="mt-4" style={{ color: "var(--text-secondary)" }}>
+            מלאי פרטים ולחצי על אישור. אחזור אליך לשיחה קלילה, בחינם וללא
+            התחייבות, כדי לבדוק אם התהליך מתאים לך בשלב הזה.
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <div className="mt-8 mx-auto" style={{ maxWidth: "460px" }}>
+            <LeadForm />
+          </div>
+        </Reveal>
+      </section>
+
+      <footer className="px-6 py-10 text-center">
+        <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+          © {new Date().getFullYear()} שנהב בנימין — ליווי תזונתי מנטלי אישי
+        </p>
+      </footer>
+    </main>
   );
 }

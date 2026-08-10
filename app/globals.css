@@ -1,26 +1,58 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-primary: #faf6f2;
+  --bg-secondary: #f3e9e0;
+  --bg-glass: rgba(255, 255, 255, 0.55);
+  --text-primary: #40332c;
+  --text-secondary: #6e5b50;
+  --text-muted: #9c8578;
+  --accent: #b98a78;
+  --accent-light: #e3c4b8;
+  --accent-dark: #8b6156;
+  --accent-glow: rgba(185, 138, 120, 0.25);
+  --border-accent: rgba(169, 136, 122, 0.35);
+  --border-subtle: rgba(64, 51, 44, 0.1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg-primary: var(--bg-primary);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --font-sans: var(--font-assistant);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-assistant), "Heebo", Arial, sans-serif;
+}
+
+input,
+textarea {
+  text-align: right;
+  direction: rtl;
+}
+
+input[type="tel"] {
+  direction: ltr;
+  text-align: right;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

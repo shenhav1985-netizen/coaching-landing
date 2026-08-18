@@ -159,6 +159,94 @@ export function SectionHook({ children }: { children: ReactNode }) {
   );
 }
 
+export function MarkerHighlight({ children }: { children: ReactNode }) {
+  return (
+    <span
+      style={{
+        backgroundImage: "linear-gradient(180deg, transparent 62%, #e3c4b8 62%)",
+        padding: "0 2px",
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
+export function LoopDiagram({ steps }: { steps: string[] }) {
+  const n = steps.length;
+  const radius = 42;
+  return (
+    <div
+      className="relative mx-auto"
+      style={{ width: "min(360px, 90vw)", aspectRatio: "1 / 1" }}
+    >
+      <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full" style={{ pointerEvents: "none" }}>
+        <circle
+          cx="50"
+          cy="50"
+          r={radius}
+          fill="none"
+          stroke="rgba(169,136,122,0.3)"
+          strokeWidth="1.5"
+          strokeDasharray="4 3"
+        />
+        <defs>
+          <marker id="loop-arrow" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#b98a78" />
+          </marker>
+        </defs>
+        {steps.map((_, i) => {
+          const a1 = (i / n) * 2 * Math.PI - Math.PI / 2;
+          const a2 = ((i + 0.82) / n) * 2 * Math.PI - Math.PI / 2;
+          const x1 = 50 + radius * Math.cos(a1);
+          const y1 = 50 + radius * Math.sin(a1);
+          const x2 = 50 + radius * Math.cos(a2);
+          const y2 = 50 + radius * Math.sin(a2);
+          const large = 0;
+          return (
+            <path
+              key={i}
+              d={`M ${x1} ${y1} A ${radius} ${radius} 0 ${large} 1 ${x2} ${y2}`}
+              fill="none"
+              stroke="#b98a78"
+              strokeWidth="1.5"
+              markerEnd="url(#loop-arrow)"
+            />
+          );
+        })}
+      </svg>
+      {steps.map((step, i) => {
+        const a = (i / n) * 2 * Math.PI - Math.PI / 2;
+        const x = 50 + radius * Math.cos(a);
+        const y = 50 + radius * Math.sin(a);
+        return (
+          <div
+            key={step}
+            className="absolute flex items-center justify-center text-center"
+            style={{
+              left: `${x}%`,
+              top: `${y}%`,
+              transform: "translate(-50%, -50%)",
+              width: "76px",
+              height: "76px",
+              borderRadius: "999px",
+              background: "rgba(255,255,255,0.75)",
+              border: "1.5px solid rgba(169,136,122,0.35)",
+              boxShadow: "0 4px 16px rgba(64,51,44,0.08)",
+              fontSize: "0.7rem",
+              fontWeight: 700,
+              color: "var(--accent-dark)",
+              padding: "6px",
+            }}
+          >
+            {step}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export function Reveal({
   children,
   className = "",

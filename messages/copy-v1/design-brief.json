@@ -1,0 +1,38 @@
+{
+  "designBrief": {
+    "playbook": "hybrid",
+    "playbookNotes": "בסיס מבני מ-'Feminine White DR' (מרווח נדיב, מרקר-הייילייטס, קצב 'מכתב מחברה', שורות קצרות) משולב עם רמת האמון/הרצינות של 'Elegant Authority' (ליווי אישי, לא מוצר דיגיטלי זול). הפלטה עצמה קבועה ומאושרת מראש על ידי הלקוחה - לא נלקחת משום פלייבוק קנוני, אין להחליף אותה.",
+    "colors": {
+      "bg": "#faf6f2",
+      "bgAlt": "#f3e9e0",
+      "text": "#40332c",
+      "textSecondary": "#6e5b50",
+      "textMuted": "#9c8578",
+      "accent": "#b98a78",
+      "accentLight": "#e3c4b8",
+      "accentDark": "#8b6156",
+      "cta": "linear-gradient(135deg, #8b6156, #b98a78, #e3c4b8)",
+      "ctaText": "#ffffff",
+      "borderAccent": "rgba(169,136,122,0.35)",
+      "borderSubtle": "rgba(64,51,44,0.08)"
+    },
+    "vibe": "warm-trust, intimate, direct-but-caring ('חברה טובה שלא מכבסת מילים')",
+    "animationLevel": "subtle",
+    "sectionTransitions": "gradient-dividers",
+    "typography": {
+      "font": "Assistant / Heebo (Hebrew + Latin subsets), NOT monospace",
+      "letterSpacing": "normal - never wide-tracked (Hebrew letterforms break with tracking)",
+      "rhythm": "הקופי כתוב במקור בשורות קצרות/משפט-פסקה אחת - זה לא באג, זה הקצב. השאירי את זה כך ויזואלית: כל 'משפט-נשימה' מקבל שורה/ריווח משלו, לא נדחס לפסקת בלוק. line-height נדיב (1.7-1.9).",
+      "scale": "H1 hero clamp(2.1rem,1.6rem+2.5vw,3.75rem), H2/hooks clamp(1.4rem,1.1rem+1vw,2rem), body 1.05-1.15rem"
+    },
+    "specialElements": [
+      "marker-highlight (רקע accentLight דק מתחת למילים בודדות בתוך משפט, כמו טוש הדגשה - לא bold סתם) עבור המשפטים החדים ביותר: 'אין בשיטה הזו בכלל תפריטים. ואין כמויות.' / 'הכישלון שלך הוא לא את.'",
+      "loop-diagram: ויזואליזציה מעגלית/זרימה של 6 השלבים (טריגר→אכילה→הקלה רגעית→הלקאה→החלטה שממחר מתחילים מחדש→טריגר) - חצים מחברים בין נודים, בגוון accent, לא גרף דאטה, יותר 'תרשים זרימה רגשי' חוזר על עצמו (מעגל סגור חזותית)",
+      "two-track-cards: 'מצד אחד - הגוף' / 'ומצד שני - הנפש' כשני GlassCard זה לצד זה (stack במובייל) עם אייקון עדין לכל אחד",
+      "day-in-life-scene: הסקשן הנרטיבי (הדלת נפתחת...) מקבל טיפוגרפיה קצת יותר גדולה/מרווחת, כאילו קטע יומן אישי - אולי glass card בגוון bgAlt עם ציטוטים פנימיים (\"רק משהו קטן\"...) ב-italic ו-accentDark",
+      "program-checklist: 8 הבולטים של 'זה הליווי שלי' כרשימה עם וי/עיגול accent, לא בולט טכני",
+      "soft glass cards (כמו הפרויקט הקיים - rgba לבן על קרם, גבול accent דק, צל חם עדין)"
+    ],
+    "notes": "זה לא WOW dark-premium ולא feminine-course-flashy. זה קרוב יותר ל'מכתב אישי מקוצב' - הדף צריך להרגיש כמו שיחה איטית, לא פאנל מכירה רועש. אנימציות fade-up עדינות בסקרול (יש כבר Reveal component בפרויקט - להשתמש בו). ה-loop diagram וה-day-in-life הם שני האלמנטים הכי חשובים ויזואלית בדף - שם שווה להשקיע הכי הרבה."
+  }
+}

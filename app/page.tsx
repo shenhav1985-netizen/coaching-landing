@@ -373,26 +373,44 @@ export default function Home() {
 
       <AccentDivider />
 
-      {/* SOCIAL PROOF PLACEHOLDER */}
+      {/* SOCIAL PROOF */}
       <section className="relative px-6 py-14 max-w-3xl mx-auto text-center">
         <Reveal>
           <SectionHook>מה נשים אחרות אומרות</SectionHook>
         </Reveal>
+        <div className="mt-8 columns-1 sm:columns-2 gap-5" style={{ columnGap: "1.25rem" }}>
+          {[
+            { src: "/images/testimonials/testimonial-1.png", w: 1075, h: 472 },
+            { src: "/images/testimonials/testimonial-2.png", w: 1096, h: 401 },
+            { src: "/images/testimonials/testimonial-3.png", w: 1107, h: 529 },
+            { src: "/images/testimonials/testimonial-4.png", w: 995, h: 787 },
+            { src: "/images/testimonials/testimonial-5.png", w: 1009, h: 323 },
+          ].map((img) => (
+            <Reveal key={img.src} className="mb-5 break-inside-avoid">
+              <div
+                className="overflow-hidden rounded-2xl"
+                style={{
+                  border: "1.5px solid var(--border-subtle)",
+                  boxShadow: "0 4px 24px rgba(64,51,44,0.08)",
+                }}
+              >
+                <Image
+                  src={img.src}
+                  alt="הודעת תודה מלקוחה"
+                  width={img.w}
+                  height={img.h}
+                  sizes="(max-width: 640px) 100vw, 340px"
+                  style={{ width: "100%", height: "auto", display: "block" }}
+                />
+              </div>
+            </Reveal>
+          ))}
+        </div>
         <Reveal>
-          <GlassCard
-            className="mt-6"
-            style={{
-              maxWidth: "700px",
-              margin: "0 auto",
-              border: "1.5px dashed rgba(169,136,122,0.4)",
-            }}
-          >
-            {/* TODO: replace with real video testimonials + screenshots once שנהב sends them */}
-            <p style={{ color: "var(--text-muted)" }}>
-              מקום שמור לעדויות וידאו וצילומי מסך של תוצאות אמיתיות. נשלב כאן ברגע
-              שיישלח החומר.
-            </p>
-          </GlassCard>
+          <p className="mt-8 text-sm" style={{ color: "var(--text-muted)" }}>
+            {/* TODO: add real video testimonials once שנהב sends them */}
+            בקרוב גם עדויות וידאו.
+          </p>
         </Reveal>
       </section>
 

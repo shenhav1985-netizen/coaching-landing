@@ -9,7 +9,6 @@ import {
   SectionHook,
   Reveal,
   MarkerHighlight,
-  LoopDiagram,
 } from "./components/ui";
 
 export default function Home() {
@@ -26,50 +25,29 @@ export default function Home() {
       </header>
 
       {/* HERO */}
-      <section className="relative px-6 pt-6 pb-16 max-w-4xl mx-auto text-center">
+      <section className="relative px-6 pt-6 pb-16 max-w-3xl mx-auto text-center">
         <AmbientGlow top="10%" left="50%" size={700} opacity={0.08} />
-
-        <Reveal>
-          <p className="font-bold mb-4" style={{ color: "var(--accent-dark)" }}>
-            לפני שאת נרשמת לעוד תוכנית אחת - תעני בכנות
-          </p>
-        </Reveal>
 
         <Reveal>
           <h1
             className="font-extrabold mx-auto"
             style={{
-              fontSize: "clamp(2rem, 1.5rem + 2.2vw, 3.4rem)",
-              maxWidth: "780px",
-              lineHeight: 1.35,
+              fontSize: "clamp(1.7rem, 1.3rem + 1.6vw, 2.6rem)",
+              maxWidth: "720px",
+              lineHeight: 1.4,
               color: "var(--text-primary)",
             }}
           >
-            נופלת. מלקה את עצמך.
+            את יודעת מה צריך לעשות.
             <br />
-            אוספת את עצמך מהרצפה.
-            <br />
-            ומתחילה מחדש.
+            <span style={{ color: "var(--accent-dark)" }}>
+              אז למה את שוב עושה את מה שהבטחת לעצמך שלא תעשי?
+            </span>
           </h1>
         </Reveal>
 
         <Reveal>
-          <p
-            className="mt-6 mx-auto font-bold"
-            style={{
-              fontSize: "clamp(1.1rem, 1rem + 0.5vw, 1.4rem)",
-              maxWidth: "620px",
-              color: "var(--accent-dark)",
-            }}
-          >
-            אולי הבעיה היא לא שאת לא מצליחה בדיאטה.
-            <br />
-            אולי פשוט אף פעם לא טיפלת במה שבאמת גורם לך לאכול.
-          </p>
-        </Reveal>
-
-        <Reveal>
-          <div className="mt-10 mx-auto relative" style={{ width: "min(320px, 75vw)" }}>
+          <div className="mt-10 mx-auto relative" style={{ width: "min(300px, 72vw)" }}>
             <div
               className="relative rounded-[28px] overflow-hidden"
               style={{
@@ -78,12 +56,11 @@ export default function Home() {
                 aspectRatio: "4 / 5",
               }}
             >
-              {/* TODO: replace with the real photo at public/images/coach.jpg */}
               <Image
                 src="/images/coach.jpg"
                 alt="שנהב בנימין - מאמנת תזונה מנטלית"
                 fill
-                sizes="320px"
+                sizes="300px"
                 style={{ objectFit: "cover" }}
                 priority
               />
@@ -93,196 +70,277 @@ export default function Home() {
 
         <Reveal>
           <div className="mt-10">
-            <CTAButton text="אני רוצה לשמוע על התוכנית" />
+            <CTAButton text="אני רוצה לשמוע על התהליך" />
           </div>
         </Reveal>
       </section>
 
       <AccentDivider />
 
-      {/* EMPATHY + HISTORY */}
-      <section className="relative px-6 py-12 max-w-2xl mx-auto text-center">
+      {/* OPENING - the familiar day */}
+      <section className="relative px-6 py-12 max-w-xl mx-auto text-center">
         <Reveal>
-          <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
-            אם ניסית כבר הכל - דיאטות, צומות, ספירת קלוריות, להפסיק לאכול בחמש, להוריד
-            פחמימות, ואפילו זריקות... וכל פעם התחלת עם המון מוטיבציה, אמרת לעצמך{" "}
-            <MarkerHighlight>&quot;הפעם זה יהיה אחרת&quot;</MarkerHighlight> - ושוב מצאת את
-            עצמך חוזרת לאותו מקום, אני יודעת כמה זה מתסכל.
+          <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 2 }}>
+            ניסית דיאטות.
+            <br />
+            צומות.
+            <br />
+            אולי גם זריקות.
+            <br />
+            החלטת שתסיימי לאכול בחמש.
+            <br />
+            אמרת לעצמך שהפעם את באמת תצליחי.
           </p>
         </Reveal>
+
         <Reveal>
-          <p className="mt-6" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
-            כי זה כבר לא רק המשקל. זה המאבק היומיומי. הארוחות שאת מתכננת מראש. הניסיון
-            להיות &quot;ילדה טובה&quot;. ההבטחה שהיום תשמרי. הדיבור הפנימי שלא מפסיק.
+          <p className="mt-6 font-bold" style={{ color: "var(--text-primary)", fontSize: "1.15rem" }}>
+            ובבוקר - את מתחילה מחדש.
           </p>
         </Reveal>
-      </section>
 
-      <AccentDivider />
-
-      {/* DAY IN LIFE */}
-      <section className="relative px-6 py-14 max-w-2xl mx-auto">
         <Reveal>
-          <SectionHook>ואז מגיע הערב</SectionHook>
+          <p className="mt-6" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 2 }}>
+            קפה.
+            <br />
+            שליטה.
+            <br />
+            אוכל שהכנת מראש.
+            <br />
+            החלטה להיות &quot;טובה&quot;.
+          </p>
         </Reveal>
+
         <Reveal>
-          <GlassCard style={{ background: "var(--bg-secondary)" }}>
-            <p style={{ color: "var(--text-primary)", fontSize: "1.08rem", lineHeight: 2 }}>
-              את חוזרת הביתה אחרי יום שלם שבו הצלחת להחזיק את עצמך. את פותחת את הדלת
-              ומזכירה לעצמך: <i style={{ color: "var(--accent-dark)" }}>&quot;אני לא הולכת למקרר.&quot;</i>{" "}
-              אבל משהו בפנים כבר מתחיל למשוך.{" "}
-              <i style={{ color: "var(--accent-dark)" }}>&quot;רק משהו קטן.&quot;</i> את
-              מתחילה מקצת. אחר כך משהו מלוח. ואז מתוק. ואז מגיע הרגע המוכר:{" "}
-              <i style={{ color: "var(--accent-dark)" }}>
-                &quot;טוב, כבר הרסתי. ממחר אני מתחילה מחדש.&quot;
-              </i>
+          <p className="mt-6 font-bold" style={{ color: "var(--text-primary)", fontSize: "1.15rem" }}>
+            ואז מגיעה הביתה.
+            <br />
+            ופתאום מתחיל המאבק.
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <GlassCard style={{ background: "var(--bg-secondary)" }} className="mt-6">
+            <p style={{ color: "var(--accent-dark)", fontSize: "1.08rem", lineHeight: 2, fontStyle: "italic" }}>
+              &quot;רק משהו קטן.&quot;
+              <br />
+              &quot;היום היה קשה.&quot;
+              <br />
+              &quot;ממחר אני חוזרת לשמור.&quot;
             </p>
-            <p className="mt-5" style={{ color: "var(--text-secondary)", fontSize: "1.05rem", lineHeight: 1.9 }}>
-              ואז מגיעות ההלקאות. &quot;איך שוב עשיתי את זה?&quot; &quot;אתמול נשבעתי
-              לעצמי.&quot; &quot;למה אני לא מצליחה לעצור?&quot; &quot;כמה פעמים עוד אני
-              יכולה לעשות את אותו הדבר?&quot;
+            <p className="mt-5" style={{ color: "var(--text-primary)", fontSize: "1.05rem", lineHeight: 1.9 }}>
+              ואיכשהו, משהו קטן הופך לעוד משהו. ואז למתוק. ואז למלוח. ואז מגיע הרגע
+              הזה שאת אומרת:
             </p>
-            <p className="mt-5 font-bold" style={{ color: "var(--text-primary)" }}>
-              והדבר שהכי נשבר בדרך הוא לא רק הדיאטה. האמון שלך בעצמך.
+            <p className="mt-3 font-bold" style={{ color: "var(--text-primary)", fontSize: "1.1rem" }}>
+              <MarkerHighlight>&quot;אם כבר הרסתי, אז עד הסוף.&quot;</MarkerHighlight>
             </p>
           </GlassCard>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-6" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            ולמחרת?
+            <br />
+            הלקאה. כעס. אכזבה. ושוב הבטחה:{" "}
+            <b style={{ color: "var(--text-primary)" }}>&quot;ממחר אני מתחילה.&quot;</b>
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-6" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            אבל כמה פעמים אפשר להתחיל מחדש?
+            <br />
+            כמה פעמים אפשר להבטיח לעצמך ולא לעמוד במילה שלך?
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-6 font-bold" style={{ color: "var(--text-primary)", fontSize: "1.1rem" }}>
+            והכי כואב - זה כבר מזמן לא רק האוכל.
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-6" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 2 }}>
+            זה הרעש בראש.
+            <br />
+            המחשבות על מה אכלת ומה תאכלי.
+            <br />
+            הניסיון להתאפק.
+            <br />
+            הפחד להישאר לבד ליד המקרר.
+            <br />
+            הבושה.
+            <br />
+            והתחושה שאולי משהו פשוט לא בסדר אצלך.
+          </p>
         </Reveal>
       </section>
 
       <AccentDivider />
 
       {/* REFRAME */}
-      <section className="relative px-6 py-14 max-w-2xl mx-auto text-center">
+      <section className="relative px-6 py-14 max-w-xl mx-auto text-center">
         <Reveal>
-          <SectionHook>אז קודם כל, אני רוצה שתדעי משהו</SectionHook>
+          <SectionHook>אבל מה אם מעולם לא הייתה לך בעיה של כוח רצון?</SectionHook>
         </Reveal>
+
         <Reveal>
-          <GlassCard accent style={{ maxWidth: "620px", margin: "0 auto" }}>
-            <p className="font-bold" style={{ color: "var(--text-primary)", fontSize: "1.15rem", lineHeight: 1.9 }}>
-              <MarkerHighlight>הכישלון שלך הוא לא את.</MarkerHighlight> את לא חלשה. זה לא
-              שאין לך אופי. וזה לא שאין לך כוח רצון. יש כאן מנגנון. ומנגנון חזק מאוד.
+          <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            אני רוצה להגיד לך משהו שאולי אף אחד לא אמר לך עד היום:
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <GlassCard accent className="mt-6" style={{ maxWidth: "560px", margin: "0 auto" }}>
+            <p className="font-bold" style={{ color: "var(--text-primary)", fontSize: "1.2rem", lineHeight: 1.9 }}>
+              את לא חלשה.
+              <br />
+              את לא חסרת אופי.
+              <br />
+              ואת לא מקולקלת.
             </p>
           </GlassCard>
         </Reveal>
+
         <Reveal>
           <p className="mt-6" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
-            יש אוכל שיכול להפעיל אצלנו מנגנון ממכר. אנחנו חיות היום בסביבה שבה מזון
-            מתועש, מתוק, מלוח וטעים מאוד נמצא בכל מקום. המזון הזה לא רק נותן לנו
-            אנרגיה - הוא יכול להפעיל במוח מערכות של תגמול והשתוקקות, וככל שאנחנו
-            חוזרות אליו שוב ושוב, החשק והדחף יכולים להפוך לחזקים מאוד.
+            הכישלונות החוזרים שלך לא אומרים שאת לא מסוגלת להשתנות.
+            <br />
+            יכול להיות שפשוט ניסית לפתור את הבעיה הלא נכונה.
           </p>
         </Reveal>
+
         <Reveal>
           <p className="mt-6" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
-            את יכולה לדעת בראש שאת לא רוצה לאכול. ובכל זאת להרגיש:{" "}
-            <b style={{ color: "var(--text-primary)" }}>&quot;אני חייבת.&quot;</b> וזה
-            בדיוק הרגע שבו את מתחילה לחשוב שמשהו לא בסדר איתך. אבל אם יש מנגנון
-            פיזיולוגי שמפעיל רעב, תגמול והשתוקקות - זה כבר לא סיפור של &quot;פשוט
-            תתאפקי&quot;.
+            כי מה שאת רואה הוא האוכל.
+            <br />
+            אבל האוכל הוא רק התוצאה.
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-6" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            מתחתיו יש מנגנון שלם - פיזיולוגי, רגשי והתנהגותי - שפועל לפעמים באופן
+            אוטומטי.
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-6" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            וכשאת מנסה לנצח אותו באמצעות עוד איסור, עוד דיאטה ועוד כוח רצון,
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-3 font-bold" style={{ color: "var(--text-primary)", fontSize: "1.2rem" }}>
+            <MarkerHighlight>המלחמה רק מתחילה מחדש.</MarkerHighlight>
           </p>
         </Reveal>
       </section>
 
       <AccentDivider />
 
-      {/* EMOTIONAL MECHANISM + LOOP */}
-      <section className="relative px-6 py-14 max-w-2xl mx-auto text-center">
+      {/* TURNING POINT */}
+      <section className="relative px-6 py-14 max-w-xl mx-auto text-center">
         <Reveal>
-          <SectionHook>אבל זה רק חצי מהסיפור</SectionHook>
+          <SectionHook>אז אולי הגיע הזמן להפסיק להילחם בעצמך.</SectionHook>
         </Reveal>
+
         <Reveal>
           <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
-            כי גם אם נוציא מהמשוואה את המזון שמפעיל את הגוף... עדיין יכול להגיע ערב
-            קשה. שעמום. עומס. עצבים. בדידות. ריקנות. צורך בפיצוי. או פשוט הרגל שנבנה
-            במשך שנים. ואז את לא בהכרח רעבה. את פשוט צריכה משהו. והאוכל הפך להיות
-            הדרך המהירה ביותר שלך לקבל אותו. וזה המקום שבו נוצר המנגנון הרגשי.
+            במקום לשאול:
+          </p>
+          <p className="mt-2 font-bold" style={{ color: "var(--text-primary)", fontSize: "1.1rem" }}>
+            &quot;איך אני מצליחה להתאפק?&quot;
           </p>
         </Reveal>
 
         <Reveal>
-          <div className="mt-10">
-            <LoopDiagram
-              steps={["טריגר", "אכילה", "הקלה רגעית", "הלקאה", "\"ממחר מתחילים מחדש\""]}
-            />
-          </div>
-        </Reveal>
-
-        <Reveal>
-          <p className="mt-10" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
-            עד שהאוכל תופס לך מקום בראש כמעט כל היום. וזה כבר משפיע על הרבה יותר
-            מהמשקל - על הביטחון שלך, על הזוגיות, על העבודה, על הילדים, על איך שאת
-            מרגישה עם עצמך. כי מבחוץ הכול יכול להיראות בסדר. אבל בפנים יש רעש. ורק את
-            יודעת כמה הוא מעייף.
+          <p className="mt-6" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            אנחנו מתחילות לשאול:
+          </p>
+          <p className="mt-2 font-bold" style={{ color: "var(--accent-dark)", fontSize: "1.15rem" }}>
+            &quot;מה באמת קורה לי ברגע הזה?&quot;
           </p>
         </Reveal>
-      </section>
 
-      <AccentDivider />
-
-      {/* WHY DIETS FAIL */}
-      <section className="relative px-6 py-14 max-w-2xl mx-auto text-center">
         <Reveal>
-          <SectionHook>אז למה כל הדיאטות לא פתרו את זה?</SectionHook>
+          <p className="mt-6" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 2 }}>
+            מה מפעיל את הדחף?
+            <br />
+            מה הגוף שלי באמת צריך?
+            <br />
+            מה אני מרגישה?
+            <br />
+            איזה הרגל כבר הפך לאוטומטי?
+            <br />
+            ואיך אני יכולה להתחיל ליצור תגובה אחרת?
+          </p>
         </Reveal>
+
         <Reveal>
-          <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
-            כי רוב הדיאטות לימדו אותך איך לשלוט באוכל - לא איך להבין את המנגנון שגורם
-            לך לאכול. הן נתנו לך תפריט. כמויות. שעות. &quot;אסור&quot;.
-            &quot;מותר&quot;. ואת נדרשת להשתמש שוב ושוב בכוח הרצון כדי להחזיק מעמד.
-            אבל אם הגוף מרגיש מחסור, אם המוח עסוק באוכל, אם יש השתוקקות חזקה ואם
-            במקביל יש גם מנגנון רגשי - כוח רצון לבד לא מספיק. ולכן את מתחילה.
-            מצליחה. נשברת. ומתחילה שוב.
+          <p className="mt-6 font-bold" style={{ color: "var(--text-primary)", fontSize: "1.1rem" }}>
+            זה בדיוק מה שאנחנו עושות בתהליך שלי.
           </p>
         </Reveal>
       </section>
 
       <AccentDivider />
 
-      {/* METHOD */}
+      {/* THREE LAYERS METHOD */}
       <section className="relative px-6 py-16 max-w-2xl mx-auto text-center">
         <Reveal>
-          <SectionHook>אז מה אנחנו עושות אחרת?</SectionHook>
+          <h2
+            className="font-extrabold"
+            style={{ fontSize: "clamp(1.4rem, 1.1rem + 1vw, 1.9rem)", color: "var(--text-primary)", lineHeight: 1.6 }}
+          >
+            לא עוד דיאטה.
+            <br />
+            לא עוד תפריט.
+            <br />
+            לא עוד רשימת איסורים.
+          </h2>
         </Reveal>
+
         <Reveal>
-          <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
-            אנחנו לא מתחילות בעוד דיאטה. אני לא נותנת לך תפריט שתצטרכי להיצמד אליו כל
-            החיים. אין אצלי רשימת כמויות שתצטרכי לספור. ואני לא רוצה שתהיי תלויה בי
-            כדי לדעת מה לאכול - אני רוצה שתכירי את הגוף שלך ותבני לעצמך יכולת להיות
-            עצמאית מול אוכל.
+          <p className="mt-6" style={{ color: "var(--text-secondary)", fontSize: "1.1rem" }}>
+            אנחנו עובדות על שלושה רבדים במקביל:
           </p>
         </Reveal>
 
-        <Reveal>
-          <GlassCard accent className="mt-8" style={{ maxWidth: "560px", margin: "0 auto" }}>
-            <p className="font-bold text-lg" style={{ color: "var(--text-primary)" }}>
-              <MarkerHighlight>אין בשיטה הזו בכלל תפריטים. ואין כמויות. שום ספירה.</MarkerHighlight>
-            </p>
-          </GlassCard>
-        </Reveal>
-
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 text-right">
+        <div className="mt-10 grid gap-6 sm:grid-cols-3 text-right">
           <Reveal>
             <GlassCard>
               <p className="font-extrabold mb-2" style={{ color: "var(--accent-dark)" }}>
-                מצד אחד - הגוף
+                הגוף
               </p>
               <p style={{ color: "var(--text-secondary)" }}>
-                את לומדת מה הגוף שלך באמת צריך. איך עובד רעב ושובע. איך המזון משפיע
-                עלייך. איך לבנות אכילה שמספקת את הגוף - מגוונת, כולל פחמימות וכל
-                אבות המזון. וכשמורידים בהדרגה את מה שמפעיל את ההשתוקקות, הרעש הפיזי
-                סביב אוכל יכול להיחלש.
+                לומדות לחזור לאוכל אמיתי, מזין ומאוזן, מכל אבות המזון - גם פחמימות -
+                בלי לחיות בתחושת מחסור ובלי להסתובב כל היום סביב קלוריות וכמויות.
               </p>
             </GlassCard>
           </Reveal>
           <Reveal>
             <GlassCard>
               <p className="font-extrabold mb-2" style={{ color: "var(--accent-dark)" }}>
-                ומצד שני - הנפש
+                המנגנון
               </p>
               <p style={{ color: "var(--text-secondary)" }}>
-                אנחנו מתחילות לזהות מה קורה לך ברגעים שבהם את פונה לאוכל. מה מפעיל
-                אותך. מה את באמת צריכה. איך לעצור את האוטומט. איך להתמודד עם הדחף בלי
-                להרגיש שאת במלחמה עם עצמך. ואיך, לאט לאט, לבנות מסוגלות.
+                מבינות מה עומד מאחורי הדחפים, ההשתוקקות והאכילה האוטומטית. לא כדי
+                להילחם בהם - אלא כדי להתחיל לשנות את המנגנון שמפעיל אותם.
+              </p>
+            </GlassCard>
+          </Reveal>
+          <Reveal>
+            <GlassCard>
+              <p className="font-extrabold mb-2" style={{ color: "var(--accent-dark)" }}>
+                את
+              </p>
+              <p style={{ color: "var(--text-secondary)" }}>
+                עובדות על ההלקאה, על הדפוסים, על הצרכים שלא מקבלים מענה ועל האופן
+                שבו את מדברת ומתנהגת מול עצמך.
               </p>
             </GlassCard>
           </Reveal>
@@ -290,50 +348,106 @@ export default function Home() {
 
         <Reveal>
           <p className="mt-10" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
-            כי אני לא רוצה שתלמדי להתאפק. אני רוצה שתגיעי למצב שאת כבר לא צריכה
-            להתאפק כל הזמן. שתוכלי להסתכל על אוכל בלי להרגיש שהוא מנהל אותך. שתדעי
-            לזהות רעב, לזהות השתוקקות, לזהות אכילה רגשית. ושתוכלי לבחור. באמת לבחור.
+            כי השינוי שאנחנו מחפשות הוא לא רק בצלחת.
+          </p>
+        </Reveal>
+        <Reveal>
+          <p className="mt-3 font-bold" style={{ color: "var(--text-primary)", fontSize: "1.15rem" }}>
+            הוא מתחיל במחשבה, הופך לפעולה - ובסופו של דבר יוצר מציאות חדשה.
           </p>
         </Reveal>
       </section>
 
       <AccentDivider />
 
-      {/* RESULTS */}
-      <section className="relative px-6 py-14 max-w-2xl mx-auto text-center">
+      {/* WHAT HAPPENS WHEN THE FIGHT STOPS */}
+      <section className="relative px-6 py-14 max-w-xl mx-auto text-center">
         <Reveal>
-          <SectionHook>ומה קורה כשהמנגנון מתחיל להשתנות?</SectionHook>
+          <SectionHook>ומה קורה כשמפסיקים להילחם?</SectionHook>
         </Reveal>
+
         <Reveal>
-          <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
-            האוכל מתחיל לתפוס פחות מקום. ההשתוקקות יכולה להיחלש. הרעב הופך ברור
-            יותר. האכילה נהיית רגועה יותר. הביטחון שלך בעצמך חוזר. ואצל נשים שמתאימות
-            לתהליך, גם הגוף מתחיל להשתנות בהתאם: הנפיחות יכולה לרדת, האנרגיה יכולה
-            להשתפר, השינה יכולה להשתפר - והמשקל יכול להתחיל לרדת כחלק מהשינוי כולו.
+          <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 2 }}>
+            האוכל מתחיל לתפוס פחות מקום בראש.
+            <br />
+            הדחפים נחלשים.
+            <br />
+            את מתחילה לזהות את הרגעים שבהם את פועלת על אוטומט.
+            <br />
+            את מתחילה לבחור אחרת.
           </p>
         </Reveal>
+
         <Reveal>
-          <p className="mt-6 font-bold" style={{ color: "var(--text-primary)" }}>
-            אבל מבחינתי זו לא המטרה היחידה. כי אם ירדת במשקל אבל את עדיין מפחדת
-            מאוכל - לא באמת השתחררת.
+          <p className="mt-6" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            לא כי הכרחת את עצמך.
+            <br />
+            אלא כי משהו בתוכך השתנה.
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-6" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            ובהדרגה נבנה הדבר שאולי הכי חסר לך היום:
+          </p>
+          <p className="mt-2 font-bold" style={{ color: "var(--accent-dark)", fontSize: "1.25rem" }}>
+            האמון בעצמך.
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-6" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            הידיעה שאת יכולה לסמוך על עצמך גם כשאף אחד לא רואה.
           </p>
         </Reveal>
       </section>
 
       <AccentDivider />
 
-      {/* DEEPER GOAL */}
-      <section className="relative px-6 py-14 max-w-2xl mx-auto text-center">
-        <Reveal>
-          <SectionHook>המטרה שלי היא שתבני מנגנון פנימי משלך</SectionHook>
-        </Reveal>
+      {/* CLOSING */}
+      <section className="relative px-6 py-14 max-w-xl mx-auto text-center">
         <Reveal>
           <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
-            שתדעי מה נכון לך. שתביני את הגוף שלך. שתדעי להתמודד עם טריגרים. שתפסיקי
-            להעניש את עצמך על כל סטייה. שתפסיקי להתחיל מחדש בכל יום ראשון. ושתתחילי
-            לסמוך על עצמך - לא כי סוף-סוף למדת להיות &quot;חזקה&quot;, אלא כי כבר לא
-            תצטרכי להילחם בעצמך כל הזמן.
+            זו לא עוד תוכנית לירידה במשקל.
+            <br />
+            זו דרך ללמוד מחדש איך להיות האישה שמנהלת את החיים שלה - ולא האוכל שמנהל
+            אותה.
           </p>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-6" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 2 }}>
+            דרך של הבנה.
+            <br />
+            תרגול.
+            <br />
+            שינוי.
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-6" style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 2 }}>
+            בלי להתחיל מחדש בכל יום שני.
+            <br />
+            בלי להיות &quot;ילדה טובה&quot;.
+            <br />
+            בלי לחיות במלחמה עם עצמך.
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <GlassCard accent className="mt-8" style={{ maxWidth: "560px", margin: "0 auto" }}>
+            <p className="font-bold" style={{ color: "var(--text-primary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+              אם את מרגישה שהגיע הזמן להפסיק להתחיל מחדש - אני מזמינה אותך להכיר את
+              הדרך שלי.
+            </p>
+          </GlassCard>
+        </Reveal>
+
+        <Reveal>
+          <div className="mt-8">
+            <CTAButton text="אני רוצה לשמוע על התהליך" />
+          </div>
         </Reveal>
       </section>
 

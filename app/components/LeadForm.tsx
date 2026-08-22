@@ -18,7 +18,7 @@ export default function LeadForm() {
           boxShadow: "0 0 20px rgba(37,211,102,0.35), 0 4px 20px rgba(64,51,44,0.15)",
         }}
       >
-        אני רוצה לשמוע על התוכנית
+        אני רוצה לשמוע על התהליך
       </motion.a>
 
       <p className="mt-4 text-xs" style={{ color: "var(--text-muted)" }}>

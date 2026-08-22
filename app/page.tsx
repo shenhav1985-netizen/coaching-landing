@@ -29,21 +29,33 @@ export default function Home() {
         <AmbientGlow top="10%" left="50%" size={700} opacity={0.08} />
 
         <Reveal>
+          <p className="font-bold mb-4" style={{ color: "var(--accent-dark)" }}>
+            לפני שתתחילי עוד תוכנית אחת - תשאלי את עצמך שאלה אחת
+          </p>
+        </Reveal>
+
+        <Reveal>
           <h1
             className="font-extrabold mx-auto"
             style={{
-              fontSize: "clamp(1.7rem, 1.3rem + 1.6vw, 2.6rem)",
-              maxWidth: "720px",
-              lineHeight: 1.4,
+              fontSize: "clamp(1.9rem, 1.4rem + 2vw, 3rem)",
+              maxWidth: "700px",
+              lineHeight: 1.35,
               color: "var(--text-primary)",
             }}
           >
-            את יודעת מה צריך לעשות.
-            <br />
-            <span style={{ color: "var(--accent-dark)" }}>
-              אז למה את שוב עושה את מה שהבטחת לעצמך שלא תעשי?
-            </span>
+            מה אם מעולם לא הייתה לך{" "}
+            <span style={{ color: "var(--accent-dark)" }}>בעיה של כוח רצון?</span>
           </h1>
+        </Reveal>
+
+        <Reveal>
+          <p
+            className="mt-5 mx-auto font-bold"
+            style={{ color: "var(--text-secondary)", fontSize: "1.1rem", maxWidth: "560px" }}
+          >
+            כי אם היא הייתה - כל פעם שהתחלת מחדש כבר הייתה אמורה לעבוד.
+          </p>
         </Reveal>
 
         <Reveal>
@@ -79,6 +91,9 @@ export default function Home() {
 
       {/* OPENING - the familiar day */}
       <section className="relative px-6 py-12 max-w-xl mx-auto text-center">
+        <Reveal>
+          <SectionHook>ותכף תביני למה זו לא שאלה רטורית</SectionHook>
+        </Reveal>
         <Reveal>
           <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 2 }}>
             ניסית דיאטות.

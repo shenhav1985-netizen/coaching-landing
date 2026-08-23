@@ -89,6 +89,37 @@ export default function Home() {
 
       <AccentDivider />
 
+      {/* VALIDATION + DIFFERENTIATOR */}
+      <section className="relative px-6 py-12 max-w-xl mx-auto text-center">
+        <Reveal>
+          <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 1.9 }}>
+            אף אחד לא רואה את המאבקים שיש לך בראש. את המלחמות. את זה שאת יודעת מה
+            טוב לך - אבל הדחף רוצה אחרת.
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <p className="mt-6 font-bold" style={{ color: "var(--text-primary)", fontSize: "1.15rem", lineHeight: 1.8 }}>
+            הגוף שלך רוצה שקט, קלילות ואנרגיה.
+            <br />
+            <span style={{ color: "var(--accent-dark)" }}>אבל המוח מושך אחורה.</span>
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <GlassCard accent className="mt-8" style={{ maxWidth: "560px", margin: "0 auto" }}>
+            <p style={{ color: "var(--text-primary)", fontSize: "1.05rem", lineHeight: 1.9 }}>
+              אני לא מלמדת אותך רק מה, איך וכמה לתת לגוף כדי שהוא יהיה שבע ומוזן -
+              אלא גם איך <MarkerHighlight>להקדים תרופה לדחף</MarkerHighlight>.
+              <br />
+              ולא רק לשחרר משקל - אלא גם לייצר שקט.
+            </p>
+          </GlassCard>
+        </Reveal>
+      </section>
+
+      <AccentDivider />
+
       {/* OPENING - the familiar day */}
       <section className="relative px-6 py-12 max-w-xl mx-auto text-center">
         <Reveal>

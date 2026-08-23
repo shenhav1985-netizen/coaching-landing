@@ -415,6 +415,12 @@ export default function Home() {
             הידיעה שאת יכולה לסמוך על עצמך גם כשאף אחד לא רואה.
           </p>
         </Reveal>
+
+        <Reveal>
+          <p className="mt-6 font-bold" style={{ color: "var(--accent-dark)", fontSize: "1.2rem", lineHeight: 1.7 }}>
+            <MarkerHighlight>להשתחרר מאכילה רגשית</MarkerHighlight> ולחזור לשיא שלך.
+          </p>
+        </Reveal>
       </section>
 
       <AccentDivider />

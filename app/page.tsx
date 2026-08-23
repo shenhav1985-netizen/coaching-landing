@@ -123,7 +123,7 @@ export default function Home() {
       {/* OPENING - the familiar day */}
       <section className="relative px-6 py-12 max-w-xl mx-auto text-center">
         <Reveal>
-          <SectionHook>ותכף תביני למה זו לא שאלה רטורית</SectionHook>
+          <SectionHook>בואי נראה איך זה נראה ביום רגיל</SectionHook>
         </Reveal>
         <Reveal>
           <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", lineHeight: 2 }}>

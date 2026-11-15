@@ -311,9 +311,9 @@ export default function VideoFunnel() {
           fill
           priority
           sizes="100vw"
-          style={{ objectFit: "cover", objectPosition: "55% 30%", opacity: 0.2 }}
+          style={{ objectFit: "cover", objectPosition: "55% 30%", opacity: 0.5 }}
         />
-        <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, rgba(42,32,27,0.55) 0%, ${DARK} 85%)` }} />
+        <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, rgba(42,32,27,0.45) 0%, rgba(42,32,27,0.7) 45%, ${DARK} 100%)` }} />
         <div className="relative mx-auto" style={{ maxWidth: "620px" }}>
           <Pill dark>במיוחד לנשים שרוצות לרדת במשקל ולהפסיק לשבור</Pill>
           <h1

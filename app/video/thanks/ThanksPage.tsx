@@ -105,7 +105,7 @@ export default function ThanksPage() {
                   אחרי שצפית, רציתי להכיר אותך קצת
                 </h2>
                 <p className="mt-2 text-center" style={{ color: "var(--text-secondary)", lineHeight: 1.7 }}>
-                  3 שאלות קצרות, זה לוקח דקה, ועוזר לי לדעת איך להתייחס אלייך.
+                  3 שאלות קצרות, זה לוקח דקה.
                 </p>
 
                 <p className="mt-7 text-center text-sm font-bold" style={{ color: "var(--accent)" }}>

@@ -534,7 +534,7 @@ export default function VideoFunnel() {
       <Section>
         <Pill>נעים להכיר</Pill>
         <H2>
-          אני שנהב בנימין, <Marker>מומחית לבריאות טבעית ותזונה</Marker>
+          אני שנהב בנימין, <Marker>מומחית לבריאות טבעית, רפואה תזונתית ושחרור מאכילה רגשית</Marker>
         </H2>
         <div className="relative mx-auto mt-8" style={{ width: "min(420px, 88vw)", aspectRatio: "2 / 3" }}>
           <Image

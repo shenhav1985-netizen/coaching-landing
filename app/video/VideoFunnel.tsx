@@ -27,31 +27,34 @@ const TESTIMONIALS: { name: string; quote: string }[] = [
 ];
 // ─────────────────────────────────────────────────────────
 
-const QUESTIONS = [
+const OTHER = "אחר";
+const QUESTIONS: { q: string; hint: string; multi?: boolean; options: string[] }[] = [
   {
-    q: "מה הכי מתאר אותי כשאני מנסה לרדת במשקל?",
+    q: "מה מתאר אותי כשאני מנסה לרדת במשקל?",
+    hint: "אפשר לסמן כמה",
+    multi: true,
     options: [
       "אני מתחילה בכל הכוח ונשברת אחרי כמה ימים או שבועות",
       "אני יודעת בדיוק מה לאכול, ובערב משהו משתלט עליי",
       "אני מצליחה לרדת, אבל המשקל תמיד חוזר",
       "אני אוכלת מתוך רגש: לחץ, עייפות, שעמום או בדידות",
-      "אחרי כל נפילה אני כועסת על עצמי ומענישה את עצמי",
       "אני כבר לא יודעת מה עוד לנסות",
     ],
   },
   {
     q: "מה הכי קרוב למה שגרם לי להשאיר פרטים דווקא עכשיו?",
+    hint: "בחירה אחת",
     options: [
       "נשברתי שוב ואמרתי לעצמי \"מספיק\"",
       "יש אירוע או תאריך שמתקרב",
-      "הבנתי שאני לא רוצה להעביר את זה הלאה לילדים שלי",
       "משהו בבריאות או במדדים שלי מדאיג אותי",
-      "ראיתי אישה אחרת שיצאה מהמעגל, וזה נתן לי תקווה",
       "סתם סקרנית לשמוע",
+      OTHER,
     ],
   },
   {
     q: "מה הכי מתאים לי אחרי הסרטון?",
+    hint: "בחירה אחת",
     options: [
       "רק רוצה לצפות בסרטון ולהמשיך לקבל ממך תוכן",
       "עוד לא יודעת, אני בודקת",
@@ -274,7 +277,9 @@ export default function VideoFunnel() {
   const [quizOpen, setQuizOpen] = useState(false);
   const [started, setStarted] = useState(false);
   const [step, setStep] = useState(0);
-  const [answers, setAnswers] = useState<string[]>([]);
+  const [answers, setAnswers] = useState<string[][]>([]);
+  const [otherText, setOtherText] = useState("");
+  const [sent, setSent] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLDivElement>(null);
@@ -321,14 +326,28 @@ export default function VideoFunnel() {
     (unlocked ? videoRef : formRef).current?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   function choose(option: string) {
-    setAnswers([...answers.slice(0, step), option]);
-    setTimeout(() => setStep(step + 1), 220);
+    const q = QUESTIONS[step];
+    const current = answers[step] ?? [];
+    const nextAnswers = [...answers];
+    if (q.multi) {
+      nextAnswers[step] = current.includes(option) ? current.filter((o) => o !== option) : [...current, option];
+      setAnswers(nextAnswers);
+      return;
+    }
+    nextAnswers[step] = [option];
+    setAnswers(nextAnswers);
+    if (option !== OTHER) setTimeout(() => setStep(step + 1), 220);
   }
+
+  const currentAnswer = answers[step] ?? [];
+  const canContinue = currentAnswer.length > 0 && !(currentAnswer.includes(OTHER) && !otherText.trim());
+  const formatAnswer = (i: number) =>
+    (answers[i] ?? []).map((o) => (o === OTHER ? "אחר: " + otherText.trim() : o)).join(" | ");
 
   const done = step >= QUESTIONS.length;
   const waText =
     `היי שנהב, אני ${name} 🤍 צפיתי בסרטון וענִיתי על השאלות:\n\n` +
-    QUESTIONS.map((item, i) => `${item.q}\n← ${answers[i] ?? ""}`).join("\n\n");
+    QUESTIONS.map((item, i) => `${item.q}\n← ${formatAnswer(i)}`).join("\n\n");
   const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waText)}`;
   const waPlain = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("היי שנהב, הגעתי מהדף של הסרטון 🤍")}`;
 
@@ -786,9 +805,12 @@ export default function VideoFunnel() {
                     <h3 className="mt-6 text-center font-extrabold" style={{ fontSize: "1.3rem", lineHeight: 1.4 }}>
                       {QUESTIONS[step].q}
                     </h3>
+                    <p className="mt-1 text-center text-sm" style={{ color: "var(--text-muted)" }}>
+                      {QUESTIONS[step].hint}
+                    </p>
                     <div className="mt-6 space-y-3">
                       {QUESTIONS[step].options.map((opt) => {
-                        const selected = answers[step] === opt;
+                        const selected = currentAnswer.includes(opt);
                         return (
                           <button
                             key={opt}
@@ -801,11 +823,48 @@ export default function VideoFunnel() {
                               lineHeight: 1.5,
                             }}
                           >
+                            {QUESTIONS[step].multi && (
+                              <span
+                                className="ml-3 inline-flex h-5 w-5 items-center justify-center rounded-md align-middle text-xs text-white"
+                                style={{ border: "1.5px solid var(--accent)", background: selected ? "var(--accent)" : "#fff" }}
+                                aria-hidden
+                              >
+                                {selected ? "✓" : ""}
+                              </span>
+                            )}
                             {opt}
                           </button>
                         );
                       })}
                     </div>
+                    {currentAnswer.includes(OTHER) && (
+                      <input
+                        autoFocus
+                        placeholder="ספרי לי במילים שלך"
+                        value={otherText}
+                        onChange={(e) => setOtherText(e.target.value)}
+                        className="mt-3 w-full rounded-2xl px-5 py-4 outline-none"
+                        style={{ background: "#fff", border: "1.5px solid var(--accent)" }}
+                      />
+                    )}
+                    {(QUESTIONS[step].multi || currentAnswer.includes(OTHER)) && (
+                      <div className="mt-5 flex justify-center">
+                        <button
+                          type="button"
+                          disabled={!canContinue}
+                          onClick={() => setStep(step + 1)}
+                          className="w-full rounded-full py-4 text-lg font-black"
+                          style={{
+                            maxWidth: "460px",
+                            color: DARK,
+                            background: "linear-gradient(135deg, #f0cfc2, #d9a593)",
+                            opacity: canContinue ? 1 : 0.45,
+                          }}
+                        >
+                          המשך ←
+                        </button>
+                      </div>
+                    )}
                     {step > 0 && (
                       <button type="button" onClick={() => setStep(step - 1)} className="mt-5 text-sm underline" style={{ color: "var(--text-muted)" }}>
                         חזרה לשאלה הקודמת
@@ -814,24 +873,38 @@ export default function VideoFunnel() {
                   </motion.div>
                 ) : (
                   <motion.div key="done" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-                    <h3 className="font-extrabold" style={{ fontSize: "1.5rem" }}>
-                      תודה, {name} 🤍
-                    </h3>
-                    <p className="mt-3 mx-auto" style={{ color: "var(--text-secondary)", maxWidth: "400px", lineHeight: 1.7 }}>
-                      לחצי על הכפתור, והתשובות שלך יישלחו אליי בוואטסאפ. אני קוראת כל מילה וחוזרת אלייך אישית.
-                    </p>
-                    <a
-                      href={waLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-6 flex items-center justify-center rounded-2xl py-4 text-lg font-black text-white"
-                      style={{ background: "#25D366", boxShadow: "0 8px 24px rgba(37,211,102,0.3)" }}
-                    >
-                      שליחת התשובות לשנהב בוואטסאפ
-                    </a>
-                    <button type="button" onClick={() => setStep(0)} className="mt-4 text-sm underline" style={{ color: "var(--text-muted)" }}>
-                      לשנות תשובה
-                    </button>
+                    {sent ? (
+                      <>
+                        <h3 className="font-extrabold" style={{ fontSize: "1.6rem" }}>
+                          תודה 🤍
+                        </h3>
+                        <p className="mt-3 mx-auto" style={{ color: "var(--text-secondary)", maxWidth: "400px", lineHeight: 1.7, fontSize: "1.08rem" }}>
+                          קראתי כל מילה. בימים הקרובים אכתוב לך אישית בוואטסאפ.
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <h3 className="font-extrabold" style={{ fontSize: "1.5rem" }}>
+                          כמעט סיימנו, {name}
+                        </h3>
+                        <p className="mt-3 mx-auto" style={{ color: "var(--text-secondary)", maxWidth: "400px", lineHeight: 1.7 }}>
+                          לחצי על הכפתור, ואז על "שליחה" בוואטסאפ, כדי שהתשובות שלך יגיעו אליי.
+                        </p>
+                        <a
+                          href={waLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setTimeout(() => setSent(true), 600)}
+                          className="mt-6 flex items-center justify-center rounded-2xl py-4 text-lg font-black text-white"
+                          style={{ background: "#25D366", boxShadow: "0 8px 24px rgba(37,211,102,0.3)" }}
+                        >
+                          שליחת התשובות לשנהב בוואטסאפ
+                        </a>
+                        <button type="button" onClick={() => setStep(0)} className="mt-4 text-sm underline" style={{ color: "var(--text-muted)" }}>
+                          לשנות תשובה
+                        </button>
+                      </>
+                    )}
                   </motion.div>
                 )}
               </AnimatePresence>

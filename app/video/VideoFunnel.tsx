@@ -274,8 +274,6 @@ function LeadForm({ onDone, dark = true }: { onDone: (name: string) => void; dar
 export default function VideoFunnel() {
   const [name, setName] = useState("");
   const [unlocked, setUnlocked] = useState(false);
-  const [quizOpen, setQuizOpen] = useState(false);
-  const [started, setStarted] = useState(false);
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<string[][]>([]);
   const [otherText, setOtherText] = useState("");
@@ -283,6 +281,7 @@ export default function VideoFunnel() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLDivElement>(null);
+  const quizRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     try {
@@ -306,12 +305,6 @@ export default function VideoFunnel() {
     }
   }, []);
 
-  useEffect(() => {
-    document.body.style.overflow = quizOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [quizOpen]);
 
   function handleDone(n: string) {
     setName(n);
@@ -440,8 +433,136 @@ export default function VideoFunnel() {
                 allowFullScreen
               />
             </div>
-            <div className="mt-6 flex justify-center">
-              <RoseButton onClick={() => setQuizOpen(true)}>צפית? 3 שאלות קצרות ←</RoseButton>
+            <div
+              ref={quizRef}
+              className="mt-10 rounded-[24px] px-6 py-8 scroll-mt-6"
+              style={{ background: "#fff", border: "1px solid var(--border-accent)", boxShadow: "0 14px 40px rgba(64,51,44,0.09)" }}
+            >
+              {!done && (
+                <p className="mb-5 text-center font-extrabold" style={{ fontSize: "1.2rem", color: "var(--accent-dark)" }}>
+                  אחרי שצפית, ענִי על 3 שאלות קצרות
+                </p>
+              )}
+            {!done && (
+              <>
+                <p className="text-center text-sm font-bold" style={{ color: "var(--accent)" }}>
+                  שאלה {step + 1} מתוך {QUESTIONS.length}
+                </p>
+                <div className="mx-auto mt-3 h-1.5 overflow-hidden rounded-full" style={{ background: "var(--bg-secondary)", maxWidth: "220px" }}>
+                  <div className="h-full rounded-full transition-all duration-300" style={{ width: `${(step / QUESTIONS.length) * 100}%`, background: "var(--accent)" }} />
+                </div>
+              </>
+            )}
+
+            <AnimatePresence mode="wait">
+              {!done ? (
+                <motion.div key={step} initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 24 }} transition={{ duration: 0.22 }}>
+                  <h3 className="mt-6 text-center font-extrabold" style={{ fontSize: "1.3rem", lineHeight: 1.4 }}>
+                    {QUESTIONS[step].q}
+                  </h3>
+                  <p className="mt-1 text-center text-sm" style={{ color: "var(--text-muted)" }}>
+                    {QUESTIONS[step].hint}
+                  </p>
+                  <div className="mt-6 space-y-3">
+                    {QUESTIONS[step].options.map((opt) => {
+                      const selected = currentAnswer.includes(opt);
+                      return (
+                        <button
+                          key={opt}
+                          type="button"
+                          onClick={() => choose(opt)}
+                          className="w-full rounded-2xl px-5 py-4 text-right font-semibold transition-colors"
+                          style={{
+                            background: selected ? "var(--accent-light)" : "#fff",
+                            border: `1.5px solid ${selected ? "var(--accent)" : "var(--border-subtle)"}`,
+                            lineHeight: 1.5,
+                          }}
+                        >
+                          {QUESTIONS[step].multi && (
+                            <span
+                              className="ml-3 inline-flex h-5 w-5 items-center justify-center rounded-md align-middle text-xs text-white"
+                              style={{ border: "1.5px solid var(--accent)", background: selected ? "var(--accent)" : "#fff" }}
+                              aria-hidden
+                            >
+                              {selected ? "✓" : ""}
+                            </span>
+                          )}
+                          {opt}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {currentAnswer.includes(OTHER) && (
+                    <input
+                      autoFocus
+                      placeholder="ספרי לי במילים שלך"
+                      value={otherText}
+                      onChange={(e) => setOtherText(e.target.value)}
+                      className="mt-3 w-full rounded-2xl px-5 py-4 outline-none"
+                      style={{ background: "#fff", border: "1.5px solid var(--accent)" }}
+                    />
+                  )}
+                  {(QUESTIONS[step].multi || currentAnswer.includes(OTHER)) && (
+                    <div className="mt-5 flex justify-center">
+                      <button
+                        type="button"
+                        disabled={!canContinue}
+                        onClick={() => setStep(step + 1)}
+                        className="w-full rounded-full py-4 text-lg font-black"
+                        style={{
+                          maxWidth: "460px",
+                          color: DARK,
+                          background: "linear-gradient(135deg, #f0cfc2, #d9a593)",
+                          opacity: canContinue ? 1 : 0.45,
+                        }}
+                      >
+                        המשך ←
+                      </button>
+                    </div>
+                  )}
+                  {step > 0 && (
+                    <button type="button" onClick={() => setStep(step - 1)} className="mt-5 text-sm underline" style={{ color: "var(--text-muted)" }}>
+                      חזרה לשאלה הקודמת
+                    </button>
+                  )}
+                </motion.div>
+              ) : (
+                <motion.div key="done" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
+                  {sent ? (
+                    <>
+                      <h3 className="font-extrabold" style={{ fontSize: "1.6rem" }}>
+                        תודה 🤍
+                      </h3>
+                      <p className="mt-3 mx-auto" style={{ color: "var(--text-secondary)", maxWidth: "400px", lineHeight: 1.7, fontSize: "1.08rem" }}>
+                        קראתי כל מילה. בימים הקרובים אכתוב לך אישית בוואטסאפ.
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <h3 className="font-extrabold" style={{ fontSize: "1.5rem" }}>
+                        כמעט סיימנו, {name}
+                      </h3>
+                      <p className="mt-3 mx-auto" style={{ color: "var(--text-secondary)", maxWidth: "400px", lineHeight: 1.7 }}>
+                        לחצי על הכפתור, ואז על "שליחה" בוואטסאפ, כדי שהתשובות שלך יגיעו אליי.
+                      </p>
+                      <a
+                        href={waLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setTimeout(() => setSent(true), 600)}
+                        className="mt-6 flex items-center justify-center rounded-2xl py-4 text-lg font-black text-white"
+                        style={{ background: "#25D366", boxShadow: "0 8px 24px rgba(37,211,102,0.3)" }}
+                      >
+                        שליחת התשובות לשנהב בוואטסאפ
+                      </a>
+                      <button type="button" onClick={() => setStep(0)} className="mt-4 text-sm underline" style={{ color: "var(--text-muted)" }}>
+                        לשנות תשובה
+                      </button>
+                    </>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
             </div>
           </div>
         </section>
@@ -720,11 +841,11 @@ export default function VideoFunnel() {
       >
         <button
           type="button"
-          onClick={unlocked ? () => setQuizOpen(true) : goCta}
+          onClick={unlocked ? () => quizRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }) : goCta}
           className="mx-auto block w-full rounded-full py-4 text-lg font-black"
           style={{ maxWidth: "460px", color: CREAM, background: DARK, boxShadow: "0 10px 30px rgba(42,32,27,0.35)" }}
         >
-          {unlocked ? "צפית? 3 שאלות קצרות ←" : "אני רוצה לראות את הסרטון ←"}
+          {unlocked ? "לשאלות הקצרות ←" : "אני רוצה לראות את הסרטון ←"}
         </button>
       </div>
       <a
@@ -740,182 +861,6 @@ export default function VideoFunnel() {
         </svg>
       </a>
 
-      {/* ── חלון השאלות ── */}
-      <AnimatePresence>
-        {quizOpen && (
-          <motion.div
-            className="fixed inset-0 z-40 flex items-end justify-center sm:items-center"
-            style={{ background: "rgba(42,32,27,0.6)" }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setQuizOpen(false)}
-          >
-            <motion.div
-              role="dialog"
-              aria-modal="true"
-              aria-label="3 שאלות קצרות"
-              className="relative w-full overflow-y-auto rounded-t-[28px] px-6 pt-8 pb-8 sm:rounded-[28px]"
-              style={{ maxWidth: "520px", maxHeight: "92vh", background: "var(--bg-primary)" }}
-              initial={{ y: 60 }}
-              animate={{ y: 0 }}
-              exit={{ y: 60 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                type="button"
-                onClick={() => setQuizOpen(false)}
-                aria-label="סגירה"
-                className="absolute left-4 top-4 h-9 w-9 rounded-full text-xl"
-                style={{ color: "var(--text-muted)", background: "rgba(64,51,44,0.06)" }}
-              >
-                ×
-              </button>
-
-              {!started && (
-                <div className="text-center">
-                  <p className="text-sm font-bold tracking-[0.2em]" style={{ color: "var(--accent)" }}>
-                    בדיקת התאמה · ליווי אישי
-                  </p>
-                  <h3 className="mt-4 font-extrabold" style={{ fontSize: "1.8rem", lineHeight: 1.3 }}>
-                    הליווי האישי מתאים לך?
-                  </h3>
-                  <p className="mt-4 mx-auto" style={{ color: "var(--text-secondary)", maxWidth: "380px", lineHeight: 1.75, fontSize: "1.05rem" }}>
-                    הליווי הצמוד שלי לא מתאים לכל אחת. 3 שאלות קצרות, ונבדוק יחד אם זה הרגע והמקום הנכונים בשבילך.
-                  </p>
-                  <div className="mt-7 flex justify-center">
-                    <RoseButton onClick={() => setStarted(true)}>בואי נבדוק התאמה ←</RoseButton>
-                  </div>
-                  <p className="mt-3 text-sm" style={{ color: "var(--text-muted)" }}>
-                    3 שאלות · ללא התחייבות
-                  </p>
-                </div>
-              )}
-
-              {started && !done && (
-                <>
-                  <p className="text-center text-sm font-bold" style={{ color: "var(--accent)" }}>
-                    שאלה {step + 1} מתוך {QUESTIONS.length}
-                  </p>
-                  <div className="mx-auto mt-3 h-1.5 overflow-hidden rounded-full" style={{ background: "var(--bg-secondary)", maxWidth: "220px" }}>
-                    <div className="h-full rounded-full transition-all duration-300" style={{ width: `${(step / QUESTIONS.length) * 100}%`, background: "var(--accent)" }} />
-                  </div>
-                </>
-              )}
-
-              <AnimatePresence mode="wait">
-                {!started ? null : !done ? (
-                  <motion.div key={step} initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 24 }} transition={{ duration: 0.22 }}>
-                    <h3 className="mt-6 text-center font-extrabold" style={{ fontSize: "1.3rem", lineHeight: 1.4 }}>
-                      {QUESTIONS[step].q}
-                    </h3>
-                    <p className="mt-1 text-center text-sm" style={{ color: "var(--text-muted)" }}>
-                      {QUESTIONS[step].hint}
-                    </p>
-                    <div className="mt-6 space-y-3">
-                      {QUESTIONS[step].options.map((opt) => {
-                        const selected = currentAnswer.includes(opt);
-                        return (
-                          <button
-                            key={opt}
-                            type="button"
-                            onClick={() => choose(opt)}
-                            className="w-full rounded-2xl px-5 py-4 text-right font-semibold transition-colors"
-                            style={{
-                              background: selected ? "var(--accent-light)" : "#fff",
-                              border: `1.5px solid ${selected ? "var(--accent)" : "var(--border-subtle)"}`,
-                              lineHeight: 1.5,
-                            }}
-                          >
-                            {QUESTIONS[step].multi && (
-                              <span
-                                className="ml-3 inline-flex h-5 w-5 items-center justify-center rounded-md align-middle text-xs text-white"
-                                style={{ border: "1.5px solid var(--accent)", background: selected ? "var(--accent)" : "#fff" }}
-                                aria-hidden
-                              >
-                                {selected ? "✓" : ""}
-                              </span>
-                            )}
-                            {opt}
-                          </button>
-                        );
-                      })}
-                    </div>
-                    {currentAnswer.includes(OTHER) && (
-                      <input
-                        autoFocus
-                        placeholder="ספרי לי במילים שלך"
-                        value={otherText}
-                        onChange={(e) => setOtherText(e.target.value)}
-                        className="mt-3 w-full rounded-2xl px-5 py-4 outline-none"
-                        style={{ background: "#fff", border: "1.5px solid var(--accent)" }}
-                      />
-                    )}
-                    {(QUESTIONS[step].multi || currentAnswer.includes(OTHER)) && (
-                      <div className="mt-5 flex justify-center">
-                        <button
-                          type="button"
-                          disabled={!canContinue}
-                          onClick={() => setStep(step + 1)}
-                          className="w-full rounded-full py-4 text-lg font-black"
-                          style={{
-                            maxWidth: "460px",
-                            color: DARK,
-                            background: "linear-gradient(135deg, #f0cfc2, #d9a593)",
-                            opacity: canContinue ? 1 : 0.45,
-                          }}
-                        >
-                          המשך ←
-                        </button>
-                      </div>
-                    )}
-                    {step > 0 && (
-                      <button type="button" onClick={() => setStep(step - 1)} className="mt-5 text-sm underline" style={{ color: "var(--text-muted)" }}>
-                        חזרה לשאלה הקודמת
-                      </button>
-                    )}
-                  </motion.div>
-                ) : (
-                  <motion.div key="done" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-                    {sent ? (
-                      <>
-                        <h3 className="font-extrabold" style={{ fontSize: "1.6rem" }}>
-                          תודה 🤍
-                        </h3>
-                        <p className="mt-3 mx-auto" style={{ color: "var(--text-secondary)", maxWidth: "400px", lineHeight: 1.7, fontSize: "1.08rem" }}>
-                          קראתי כל מילה. בימים הקרובים אכתוב לך אישית בוואטסאפ.
-                        </p>
-                      </>
-                    ) : (
-                      <>
-                        <h3 className="font-extrabold" style={{ fontSize: "1.5rem" }}>
-                          כמעט סיימנו, {name}
-                        </h3>
-                        <p className="mt-3 mx-auto" style={{ color: "var(--text-secondary)", maxWidth: "400px", lineHeight: 1.7 }}>
-                          לחצי על הכפתור, ואז על "שליחה" בוואטסאפ, כדי שהתשובות שלך יגיעו אליי.
-                        </p>
-                        <a
-                          href={waLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={() => setTimeout(() => setSent(true), 600)}
-                          className="mt-6 flex items-center justify-center rounded-2xl py-4 text-lg font-black text-white"
-                          style={{ background: "#25D366", boxShadow: "0 8px 24px rgba(37,211,102,0.3)" }}
-                        >
-                          שליחת התשובות לשנהב בוואטסאפ
-                        </a>
-                        <button type="button" onClick={() => setStep(0)} className="mt-4 text-sm underline" style={{ color: "var(--text-muted)" }}>
-                          לשנות תשובה
-                        </button>
-                      </>
-                    )}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </main>
   );
 }

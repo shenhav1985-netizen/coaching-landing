@@ -2,12 +2,10 @@
 
 import Image from "next/image";
 import { ReactNode, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
+import { CREAM, DARK, ROSE, STORAGE_KEY, THANKS_PATH, waUrl } from "./shared";
 
 // ── הגדרות שנהב ───────────────────────────────────────────
-const YOUTUBE_ID = "reZrRkTwDro";
-const WHATSAPP_NUMBER = "972506409478";
-
 // המלצות אמיתיות: שם פרטי (ריק = "לקוחה בליווי אישי") + ציטוט
 const TESTIMONIALS: { name: string; quote: string }[] = [
   {
@@ -26,43 +24,6 @@ const TESTIMONIALS: { name: string; quote: string }[] = [
   },
 ];
 // ─────────────────────────────────────────────────────────
-
-const OTHER = "אחר";
-const QUESTIONS: { q: string; hint: string; multi?: boolean; options: string[] }[] = [
-  {
-    q: "מה מתאר אותי כשאני מנסה לרדת במשקל?",
-    hint: "אפשר לסמן כמה",
-    multi: true,
-    options: [
-      "אני מתחילה בכל הכוח ונשברת אחרי כמה ימים או שבועות",
-      "אני יודעת בדיוק מה לאכול, ובערב משהו משתלט עליי",
-      "אני מצליחה לרדת, אבל המשקל תמיד חוזר",
-      "אני אוכלת מתוך רגש: לחץ, עייפות, שעמום או בדידות",
-      "אני כבר לא יודעת מה עוד לנסות",
-    ],
-  },
-  {
-    q: "מה הכי קרוב למה שגרם לי להשאיר פרטים דווקא עכשיו?",
-    hint: "בחירה אחת",
-    options: [
-      "נשברתי שוב ואמרתי לעצמי \"מספיק\"",
-      "יש אירוע או תאריך שמתקרב",
-      "משהו בבריאות או במדדים שלי מדאיג אותי",
-      "סתם סקרנית לשמוע",
-      OTHER,
-    ],
-  },
-  {
-    q: "מה הכי מתאים לי אחרי הסרטון?",
-    hint: "בחירה אחת",
-    options: [
-      "רק רוצה לצפות בסרטון ולהמשיך לקבל ממך תוכן",
-      "עוד לא יודעת, אני בודקת",
-      "רוצה לשמוע איך את עובדת עם נשים במצב שלי",
-      "רוצה שתכתבי לי בוואטסאפ ונדבר",
-    ],
-  },
-];
 
 const SCRIPT_LINES = [
   "כל יום ראשון את צריכה לאסוף את עצמך מחדש, רק כדי לאכול מזין",
@@ -107,10 +68,6 @@ const FAQ: [string, string][] = [
   ],
 ];
 
-const DARK = "#2a201b";
-const CREAM = "#f7eee8";
-const ROSE = "#e3b5a4";
-const STORAGE_KEY = "shenhav-video-lead";
 
 // ── רכיבים קטנים ──
 function Pill({ children, dark = false }: { children: ReactNode; dark?: boolean }) {
@@ -180,7 +137,6 @@ function Section({ children, dark = false, id }: { children: ReactNode; dark?: b
 // ── חיבור לטופס של רב מסר (נטען מוסתר בדף, הטופס המעוצב ממלא ושולח אותו) ──
 const RAV_FORM_SRC = "https://form2.ravpage.co.il/9317a8fb473b49a4bd9124712670381f6AFA1030";
 const RAV_CONTAINER_ID = "rav-hidden-form";
-const JUST_REGISTERED_KEY = "shenhav-just-registered";
 
 function setInputValue(el: HTMLInputElement, value: string) {
   const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
@@ -217,10 +173,9 @@ function LeadForm({ onDone, dark = true }: { onDone: (name: string) => void; dar
     setSending(true);
     try {
       localStorage.setItem(STORAGE_KEY, n);
-      sessionStorage.setItem(JUST_REGISTERED_KEY, "1");
     } catch {}
     if (!submitToRav(n, digits)) console.error("ravpage form not loaded; lead not saved");
-    // רב מסר מעביר אחרי הרשמה לדף הזה מחדש. אם זה לוקח זמן, פותחים את הסרטון בינתיים
+    // רב מסר מעביר אחרי הרשמה לדף התודה. אם זה לוקח זמן, עוברים בעצמנו
     setTimeout(() => {
       setSending(false);
       onDone(n);
@@ -274,14 +229,8 @@ function LeadForm({ onDone, dark = true }: { onDone: (name: string) => void; dar
 export default function VideoFunnel() {
   const [name, setName] = useState("");
   const [unlocked, setUnlocked] = useState(false);
-  const [step, setStep] = useState(0);
-  const [answers, setAnswers] = useState<string[][]>([]);
-  const [otherText, setOtherText] = useState("");
-  const [sent, setSent] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLDivElement>(null);
-  const quizRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     try {
@@ -289,10 +238,6 @@ export default function VideoFunnel() {
       if (saved) {
         setName(saved);
         setUnlocked(true);
-        if (sessionStorage.getItem(JUST_REGISTERED_KEY)) {
-          sessionStorage.removeItem(JUST_REGISTERED_KEY);
-          setTimeout(() => videoRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 400);
-        }
       }
     } catch {}
 
@@ -308,41 +253,14 @@ export default function VideoFunnel() {
 
   function handleDone(n: string) {
     setName(n);
-    setUnlocked(true);
-    try {
-      localStorage.setItem(STORAGE_KEY, n);
-    } catch {}
-    setTimeout(() => videoRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 150);
+    window.location.href = THANKS_PATH;
   }
 
-  const goCta = () =>
-    (unlocked ? videoRef : formRef).current?.scrollIntoView({ behavior: "smooth", block: "start" });
-
-  function choose(option: string) {
-    const q = QUESTIONS[step];
-    const current = answers[step] ?? [];
-    const nextAnswers = [...answers];
-    if (q.multi) {
-      nextAnswers[step] = current.includes(option) ? current.filter((o) => o !== option) : [...current, option];
-      setAnswers(nextAnswers);
-      return;
-    }
-    nextAnswers[step] = [option];
-    setAnswers(nextAnswers);
-    if (option !== OTHER) setTimeout(() => setStep(step + 1), 220);
-  }
-
-  const currentAnswer = answers[step] ?? [];
-  const canContinue = currentAnswer.length > 0 && !(currentAnswer.includes(OTHER) && !otherText.trim());
-  const formatAnswer = (i: number) =>
-    (answers[i] ?? []).map((o) => (o === OTHER ? "אחר: " + otherText.trim() : o)).join(" | ");
-
-  const done = step >= QUESTIONS.length;
-  const waText =
-    `היי שנהב, אני ${name} 🤍 צפיתי בסרטון וענִיתי על השאלות:\n\n` +
-    QUESTIONS.map((item, i) => `${item.q}\n← ${formatAnswer(i)}`).join("\n\n");
-  const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waText)}`;
-  const waPlain = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("היי שנהב, הגעתי מהדף של הסרטון 🤍")}`;
+  const goThanks = () => {
+    window.location.href = THANKS_PATH;
+  };
+  const goCta = () => (unlocked ? goThanks() : formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
+  const waPlain = waUrl("היי שנהב, הגעתי מהדף של הסרטון 🤍");
 
   const CtaRow = () => (
     <div className="mt-10 flex justify-center">
@@ -410,163 +328,6 @@ export default function VideoFunnel() {
           </div>
         </div>
       </section>
-
-      {/* ── הסרטון (נפתח אחרי הרשמה) ── */}
-      {unlocked && (
-        <section ref={videoRef} className="px-6 pt-14 pb-4 scroll-mt-4">
-          <div className="mx-auto" style={{ maxWidth: "640px" }}>
-            <p className="text-center font-extrabold" style={{ fontSize: "1.4rem" }}>
-              {name}, הנה הסרטון שלך 🤍
-            </p>
-            <p className="mt-1 text-center" style={{ color: "var(--text-secondary)" }}>
-              לחצי על הנגן. זה 10 דקות, ושווה לראות עד הסוף.
-            </p>
-            <div
-              className="mt-5 overflow-hidden rounded-[20px]"
-              style={{ aspectRatio: "16 / 9", background: "#000", boxShadow: "0 18px 50px rgba(64,51,44,0.2)" }}
-            >
-              <iframe
-                className="h-full w-full"
-                src={`https://www.youtube-nocookie.com/embed/${YOUTUBE_ID}?rel=0&modestbranding=1`}
-                title="הסרטון של שנהב"
-                allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-                allowFullScreen
-              />
-            </div>
-            <div
-              ref={quizRef}
-              className="mt-10 rounded-[24px] px-6 py-8 scroll-mt-6"
-              style={{ background: "#fff", border: "1px solid var(--border-accent)", boxShadow: "0 14px 40px rgba(64,51,44,0.09)" }}
-            >
-              {!done && (
-                <p className="mb-5 text-center font-extrabold" style={{ fontSize: "1.2rem", color: "var(--accent-dark)" }}>
-                  אחרי שצפית, ענִי על 3 שאלות קצרות
-                </p>
-              )}
-            {!done && (
-              <>
-                <p className="text-center text-sm font-bold" style={{ color: "var(--accent)" }}>
-                  שאלה {step + 1} מתוך {QUESTIONS.length}
-                </p>
-                <div className="mx-auto mt-3 h-1.5 overflow-hidden rounded-full" style={{ background: "var(--bg-secondary)", maxWidth: "220px" }}>
-                  <div className="h-full rounded-full transition-all duration-300" style={{ width: `${(step / QUESTIONS.length) * 100}%`, background: "var(--accent)" }} />
-                </div>
-              </>
-            )}
-
-            <AnimatePresence mode="wait">
-              {!done ? (
-                <motion.div key={step} initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 24 }} transition={{ duration: 0.22 }}>
-                  <h3 className="mt-6 text-center font-extrabold" style={{ fontSize: "1.3rem", lineHeight: 1.4 }}>
-                    {QUESTIONS[step].q}
-                  </h3>
-                  <p className="mt-1 text-center text-sm" style={{ color: "var(--text-muted)" }}>
-                    {QUESTIONS[step].hint}
-                  </p>
-                  <div className="mt-6 space-y-3">
-                    {QUESTIONS[step].options.map((opt) => {
-                      const selected = currentAnswer.includes(opt);
-                      return (
-                        <button
-                          key={opt}
-                          type="button"
-                          onClick={() => choose(opt)}
-                          className="w-full rounded-2xl px-5 py-4 text-right font-semibold transition-colors"
-                          style={{
-                            background: selected ? "var(--accent-light)" : "#fff",
-                            border: `1.5px solid ${selected ? "var(--accent)" : "var(--border-subtle)"}`,
-                            lineHeight: 1.5,
-                          }}
-                        >
-                          {QUESTIONS[step].multi && (
-                            <span
-                              className="ml-3 inline-flex h-5 w-5 items-center justify-center rounded-md align-middle text-xs text-white"
-                              style={{ border: "1.5px solid var(--accent)", background: selected ? "var(--accent)" : "#fff" }}
-                              aria-hidden
-                            >
-                              {selected ? "✓" : ""}
-                            </span>
-                          )}
-                          {opt}
-                        </button>
-                      );
-                    })}
-                  </div>
-                  {currentAnswer.includes(OTHER) && (
-                    <input
-                      autoFocus
-                      placeholder="ספרי לי במילים שלך"
-                      value={otherText}
-                      onChange={(e) => setOtherText(e.target.value)}
-                      className="mt-3 w-full rounded-2xl px-5 py-4 outline-none"
-                      style={{ background: "#fff", border: "1.5px solid var(--accent)" }}
-                    />
-                  )}
-                  {(QUESTIONS[step].multi || currentAnswer.includes(OTHER)) && (
-                    <div className="mt-5 flex justify-center">
-                      <button
-                        type="button"
-                        disabled={!canContinue}
-                        onClick={() => setStep(step + 1)}
-                        className="w-full rounded-full py-4 text-lg font-black"
-                        style={{
-                          maxWidth: "460px",
-                          color: DARK,
-                          background: "linear-gradient(135deg, #f0cfc2, #d9a593)",
-                          opacity: canContinue ? 1 : 0.45,
-                        }}
-                      >
-                        המשך ←
-                      </button>
-                    </div>
-                  )}
-                  {step > 0 && (
-                    <button type="button" onClick={() => setStep(step - 1)} className="mt-5 text-sm underline" style={{ color: "var(--text-muted)" }}>
-                      חזרה לשאלה הקודמת
-                    </button>
-                  )}
-                </motion.div>
-              ) : (
-                <motion.div key="done" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-                  {sent ? (
-                    <>
-                      <h3 className="font-extrabold" style={{ fontSize: "1.6rem" }}>
-                        תודה 🤍
-                      </h3>
-                      <p className="mt-3 mx-auto" style={{ color: "var(--text-secondary)", maxWidth: "400px", lineHeight: 1.7, fontSize: "1.08rem" }}>
-                        קראתי כל מילה. בימים הקרובים אכתוב לך אישית בוואטסאפ.
-                      </p>
-                    </>
-                  ) : (
-                    <>
-                      <h3 className="font-extrabold" style={{ fontSize: "1.5rem" }}>
-                        כמעט סיימנו, {name}
-                      </h3>
-                      <p className="mt-3 mx-auto" style={{ color: "var(--text-secondary)", maxWidth: "400px", lineHeight: 1.7 }}>
-                        לחצי על הכפתור, ואז על "שליחה" בוואטסאפ, כדי שהתשובות שלך יגיעו אליי.
-                      </p>
-                      <a
-                        href={waLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => setTimeout(() => setSent(true), 600)}
-                        className="mt-6 flex items-center justify-center rounded-2xl py-4 text-lg font-black text-white"
-                        style={{ background: "#25D366", boxShadow: "0 8px 24px rgba(37,211,102,0.3)" }}
-                      >
-                        שליחת התשובות לשנהב בוואטסאפ
-                      </a>
-                      <button type="button" onClick={() => setStep(0)} className="mt-4 text-sm underline" style={{ color: "var(--text-muted)" }}>
-                        לשנות תשובה
-                      </button>
-                    </>
-                  )}
-                </motion.div>
-              )}
-            </AnimatePresence>
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* ── 2. התסריט ── */}
       <Section>
@@ -841,11 +602,11 @@ export default function VideoFunnel() {
       >
         <button
           type="button"
-          onClick={unlocked ? () => quizRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }) : goCta}
+          onClick={goCta}
           className="mx-auto block w-full rounded-full py-4 text-lg font-black"
           style={{ maxWidth: "460px", color: CREAM, background: DARK, boxShadow: "0 10px 30px rgba(42,32,27,0.35)" }}
         >
-          {unlocked ? "לשאלות הקצרות ←" : "אני רוצה לראות את הסרטון ←"}
+          {unlocked ? "לסרטון שלך ←" : "אני רוצה לראות את הסרטון ←"}
         </button>
       </div>
       <a

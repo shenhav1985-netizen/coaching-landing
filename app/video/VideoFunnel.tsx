@@ -598,18 +598,22 @@ export default function VideoFunnel() {
         <H2>
           אני שנהב בנימין, <Marker>מומחית לבריאות טבעית, רפואה תזונתית ושחרור מאכילה רגשית</Marker>
         </H2>
-        <div className="relative mx-auto mt-8" style={{ width: "min(420px, 88vw)", aspectRatio: "2 / 3" }}>
+        <div
+          className="relative mx-auto mt-8 overflow-hidden"
+          style={{
+            width: "min(380px, 86vw)",
+            aspectRatio: "4 / 5",
+            borderRadius: "28px",
+            WebkitMaskImage: "linear-gradient(180deg, #000 80%, transparent 100%)",
+            maskImage: "linear-gradient(180deg, #000 80%, transparent 100%)",
+          }}
+        >
           <Image
             src="/images/coach-kitchen.jpg"
             alt="שנהב בנימין"
             fill
-            sizes="420px"
-            style={{
-              objectFit: "cover",
-              borderRadius: "28px",
-              WebkitMaskImage: "linear-gradient(180deg, #000 82%, transparent 100%)",
-              maskImage: "linear-gradient(180deg, #000 82%, transparent 100%)",
-            }}
+            sizes="760px"
+            style={{ objectFit: "cover", objectPosition: "50% 32%", transform: "scale(2.1)", transformOrigin: "51% 36%" }}
           />
         </div>
         <div className="-mt-4 relative space-y-4" style={{ color: "var(--text-secondary)", fontSize: "1.06rem", lineHeight: 1.8 }}>

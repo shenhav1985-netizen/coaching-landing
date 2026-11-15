@@ -9,9 +9,10 @@ export const DARK = "#2a201b";
 export const CREAM = "#f7eee8";
 export const ROSE = "#e3b5a4";
 
-// מועדים לשיחת היכרות בדף התודה. להשאיר ריק = רק כפתור וואטסאפ לתיאום.
-// דוגמה: ["יום ראשון בשעה 10:00", "יום שלישי בשעה 20:30"]
-export const CALL_SLOTS: string[] = [];
+// לוח קביעת הפגישות של שנהב ב-Google Calendar ("שיחת היכרות עם שנהב")
+export const BOOKING_LINK = "https://calendar.app.google/tZ92KbQXVSy6Q4sj8";
+export const BOOKING_EMBED =
+  "https://calendar.google.com/calendar/appointments/schedules/AcZssZ2FSeb7onrsaJj55k-aMNFR76uiE_boDThmAvuGYMsKtnK8gj4Sg3nWv0lzg1D8YkI3iVXxa1f_?gv=true";
 
 export const OTHER = "אחר";
 export const QUESTIONS: { q: string; hint: string; multi?: boolean; options: string[] }[] = [

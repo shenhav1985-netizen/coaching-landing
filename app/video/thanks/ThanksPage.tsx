@@ -2,7 +2,7 @@
 
 import { ReactNode, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { CALL_SLOTS, DARK, OTHER, QUESTIONS, STORAGE_KEY, YOUTUBE_ID, waUrl } from "../shared";
+import { BOOKING_EMBED, BOOKING_LINK, DARK, OTHER, QUESTIONS, STORAGE_KEY, YOUTUBE_ID, waUrl } from "../shared";
 
 function RoseButton({ children, onClick, disabled = false }: { children: ReactNode; onClick?: () => void; disabled?: boolean }) {
   return (
@@ -30,7 +30,6 @@ export default function ThanksPage() {
   const [answers, setAnswers] = useState<string[][]>([]);
   const [otherText, setOtherText] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [requested, setRequested] = useState<string | null>(null);
 
   useEffect(() => {
     try {
@@ -60,8 +59,6 @@ export default function ThanksPage() {
 
   const answersText = QUESTIONS.map((item, i) => `${item.q}\n← ${formatAnswer(i)}`).join("\n\n");
   const hello = `היי שנהב, אני ${name || "מהדף של הסרטון"} 🤍`;
-  const slotLink = (slot: string) =>
-    waUrl(`${hello}\nאשמח לשיחת היכרות ב${slot}.\n\nהתשובות שלי:\n\n${answersText}`);
   const otherTimeLink = waUrl(`${hello}\nאשמח לשיחת היכרות, אבל צריכה מועד אחר.\n\nהתשובות שלי:\n\n${answersText}`);
 
   const showQuestionButton = q.multi || current.includes(OTHER) || isLast;
@@ -200,49 +197,43 @@ export default function ThanksPage() {
                   </p>
                 </div>
 
-                {requested ? (
-                  <div className="mt-7 rounded-2xl px-5 py-5" style={{ background: "var(--bg-secondary)" }}>
-                    <p className="font-bold" style={{ color: "var(--accent-dark)" }}>
-                      נפתח לך וואטסאפ. לחצי שם על "שליחה", ואחזור אלייך לאשר את המועד 🤍
-                    </p>
-                    <button type="button" onClick={() => setRequested(null)} className="mt-3 text-sm underline" style={{ color: "var(--text-muted)" }}>
-                      לבחור מועד אחר
-                    </button>
-                  </div>
-                ) : (
-                  <>
-                    {CALL_SLOTS.length > 0 && (
-                      <>
-                        <p className="mt-7 font-bold">בחרי את המועד שנוח לך:</p>
-                        <div className="mt-4 space-y-3">
-                          {CALL_SLOTS.map((slot) => (
-                            <a
-                              key={slot}
-                              href={slotLink(slot)}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              onClick={() => setTimeout(() => setRequested(slot), 400)}
-                              className="mx-auto block w-full rounded-full py-4 text-lg font-black"
-                              style={{ maxWidth: "460px", color: DARK, background: "linear-gradient(135deg, #f0cfc2, #d9a593)" }}
-                            >
-                              {slot}
-                            </a>
-                          ))}
-                        </div>
-                      </>
-                    )}
-                    <a
-                      href={otherTimeLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setTimeout(() => setRequested("other"), 400)}
-                      className="mx-auto mt-5 flex w-full items-center justify-center rounded-full py-4 font-black text-white"
-                      style={{ maxWidth: "460px", background: "#25D366", boxShadow: "0 8px 24px rgba(37,211,102,0.3)" }}
-                    >
-                      {CALL_SLOTS.length > 0 ? "לא מתאים? כתבי לי בוואטסאפ ונמצא זמן אחר" : "לתיאום שיחה בוואטסאפ"}
-                    </a>
-                  </>
-                )}
+                <p className="mt-7 font-bold" style={{ fontSize: "1.1rem" }}>
+                  בחרי את המועד שנוח לך:
+                </p>
+                <div
+                  className="-mx-3 mt-4 overflow-hidden rounded-2xl sm:mx-0"
+                  style={{ border: "1px solid var(--border-subtle)", background: "#fff" }}
+                >
+                  <iframe
+                    src={BOOKING_EMBED}
+                    title="קביעת שיחת היכרות עם שנהב"
+                    className="block w-full"
+                    style={{ height: "720px", border: 0 }}
+                    loading="lazy"
+                  />
+                </div>
+                <a
+                  href={BOOKING_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 inline-block text-sm underline"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  הלוח לא נטען? לפתיחה בחלון נפרד
+                </a>
+
+                <p className="mt-7" style={{ color: "var(--text-secondary)" }}>
+                  לא מתאים לך אף אחד מהמועדים?
+                </p>
+                <a
+                  href={otherTimeLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mx-auto mt-3 flex w-full items-center justify-center rounded-full py-4 font-black text-white"
+                  style={{ maxWidth: "460px", background: "#25D366", boxShadow: "0 8px 24px rgba(37,211,102,0.3)" }}
+                >
+                  כתבי לי בוואטסאפ ונמצא זמן אחר
+                </a>
 
                 <p className="mt-7 text-sm" style={{ color: "var(--text-muted)", lineHeight: 1.7 }}>
                   אני מלווה עד 7 נשים בו-זמנית, ולכן אני בודקת התאמה לפני כל ליווי.

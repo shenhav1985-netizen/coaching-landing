@@ -174,6 +174,30 @@ function Section({ children, dark = false, id }: { children: ReactNode; dark?: b
   );
 }
 
+// ── חיבור לטופס של רב מסר (נטען מוסתר בדף, הטופס המעוצב ממלא ושולח אותו) ──
+const RAV_FORM_SRC = "https://form2.ravpage.co.il/9317a8fb473b49a4bd9124712670381f6AFA1030";
+const RAV_CONTAINER_ID = "rav-hidden-form";
+const JUST_REGISTERED_KEY = "shenhav-just-registered";
+
+function setInputValue(el: HTMLInputElement, value: string) {
+  const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+  if (setter) setter.call(el, value);
+  else el.value = value;
+  for (const type of ["input", "change", "blur"]) el.dispatchEvent(new Event(type, { bubbles: true }));
+}
+
+function submitToRav(name: string, phone: string): boolean {
+  const root = document.getElementById(RAV_CONTAINER_ID);
+  const nameInput = root?.querySelector<HTMLInputElement>('input[name="fields[13_Fixed]"]');
+  const phoneInput = root?.querySelector<HTMLInputElement>('input[name="fields[2_Fixed]"]');
+  const button = root?.querySelector<HTMLButtonElement>("button.submitButton");
+  if (!nameInput || !phoneInput || !button) return false;
+  setInputValue(nameInput, name);
+  setInputValue(phoneInput, phone);
+  button.click();
+  return true;
+}
+
 function LeadForm({ onDone, dark = true }: { onDone: (name: string) => void; dark?: boolean }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -189,14 +213,15 @@ function LeadForm({ onDone, dark = true }: { onDone: (name: string) => void; dar
     setError("");
     setSending(true);
     try {
-      await fetch("/api/lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: n, phone }),
-      });
+      localStorage.setItem(STORAGE_KEY, n);
+      sessionStorage.setItem(JUST_REGISTERED_KEY, "1");
     } catch {}
-    setSending(false);
-    onDone(n);
+    if (!submitToRav(n, digits)) console.error("ravpage form not loaded; lead not saved");
+    // רב מסר מעביר אחרי הרשמה לדף הזה מחדש. אם זה לוקח זמן, פותחים את הסרטון בינתיים
+    setTimeout(() => {
+      setSending(false);
+      onDone(n);
+    }, 2500);
   }
 
   const inputStyle = {
@@ -260,8 +285,20 @@ export default function VideoFunnel() {
       if (saved) {
         setName(saved);
         setUnlocked(true);
+        if (sessionStorage.getItem(JUST_REGISTERED_KEY)) {
+          sessionStorage.removeItem(JUST_REGISTERED_KEY);
+          setTimeout(() => videoRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 400);
+        }
       }
     } catch {}
+
+    const container = document.getElementById(RAV_CONTAINER_ID);
+    if (container && !container.querySelector("script")) {
+      const script = document.createElement("script");
+      script.src = RAV_FORM_SRC;
+      script.charset = "UTF-8";
+      container.appendChild(script);
+    }
   }, []);
 
   useEffect(() => {
@@ -303,6 +340,12 @@ export default function VideoFunnel() {
 
   return (
     <main className="relative overflow-hidden pb-28" style={{ background: "var(--bg-primary)" }}>
+      <div
+        id={RAV_CONTAINER_ID}
+        aria-hidden="true"
+        style={{ position: "absolute", left: "-10000px", top: 0, width: "400px", height: "1px", overflow: "hidden" }}
+      />
+
       {/* ── 1. פתיחה ── */}
       <section className="relative overflow-hidden px-6 pt-12 pb-16 text-center" style={{ background: DARK }}>
         <Image

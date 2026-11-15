@@ -306,12 +306,12 @@ export default function VideoFunnel() {
       {/* ── 1. פתיחה ── */}
       <section className="relative overflow-hidden px-6 pt-12 pb-16 text-center" style={{ background: DARK }}>
         <Image
-          src="/images/coach.jpg"
+          src="/images/coach-kitchen.jpg"
           alt=""
           fill
           priority
           sizes="100vw"
-          style={{ objectFit: "cover", objectPosition: "center 20%", opacity: 0.2 }}
+          style={{ objectFit: "cover", objectPosition: "55% 30%", opacity: 0.2 }}
         />
         <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, rgba(42,32,27,0.55) 0%, ${DARK} 85%)` }} />
         <div className="relative mx-auto" style={{ maxWidth: "620px" }}>
@@ -536,17 +536,17 @@ export default function VideoFunnel() {
         <H2>
           אני שנהב בנימין, <Marker>מומחית לבריאות טבעית ותזונה</Marker>
         </H2>
-        <div className="relative mx-auto mt-8" style={{ width: "min(360px, 86vw)", aspectRatio: "4 / 5" }}>
+        <div className="relative mx-auto mt-8" style={{ width: "min(420px, 88vw)", aspectRatio: "2 / 3" }}>
           <Image
-            src="/images/coach.jpg"
+            src="/images/coach-kitchen.jpg"
             alt="שנהב בנימין"
             fill
-            sizes="360px"
+            sizes="420px"
             style={{
               objectFit: "cover",
               borderRadius: "28px",
-              WebkitMaskImage: "linear-gradient(180deg, #000 70%, transparent 100%)",
-              maskImage: "linear-gradient(180deg, #000 70%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(180deg, #000 82%, transparent 100%)",
+              maskImage: "linear-gradient(180deg, #000 82%, transparent 100%)",
             }}
           />
         </div>

@@ -10,16 +10,16 @@ import { CREAM, DARK, ROSE, STORAGE_KEY, THANKS_PATH, waUrl } from "./shared";
 type Shot = { name: string } & ({ src: string; w: number; h: number } | { text: string; time: string });
 const WHATSAPP_SHOTS: Shot[] = [
   {
-    name: "צליל",
+    name: "ליאת",
     text: "יקירתי אני משתפת אותך שנשקלתי היום ואני כבר על 64 וזה פשוט מדהים. ומה שהכי מפתיע אותי זה שזה כבר לא המטרה העיקרית. אני פשוט יותר מודעת ופחות נלחמת, ומפתיעה את עצמי כל יום מחדש. תודה עלייך",
     time: "16:05",
   },
   {
-    name: "שירה",
+    name: "אורית",
     text: "שנהב ❤️ לפעמים אנשים נכנסים לחיינו בדיוק ברגע שבו אנחנו מוכנים לשינוי, ומרגישה שכך קרה לי איתך! יש בך שילוב מדויק ומיוחד של אנושיות, אינטליגנציה רגשית, ובעיקר יכולת לראות מעבר למספרים ולמשקל. את רואה אותי ואת מה שקורה בי בפנים, וזה בדיוק מה שעשה את ההבדל והפך את התהליך לכל כך משמעותי. תודה שאת מובילה אותי לא רק לעבר ירידה במשקל, אלא לעבר שינוי הרבה יותר עמוק בקשר שלי עם עצמי ועם גופי. ושכמה שיותר אנשים יזכו לליווי שלך!",
     time: "9:24",
   },
-  { name: "ליאת", src: "/images/testimonials/testimonial-8.png", w: 1128, h: 745 },
+  { name: "מיכל", src: "/images/testimonials/testimonial-8.png", w: 1128, h: 745 },
   { name: "נועה", src: "/images/testimonials/testimonial-1.png", w: 1075, h: 472 },
   { name: "הילה", src: "/images/testimonials/testimonial-7.png", w: 1466, h: 630 },
   { name: "דנה", src: "/images/testimonials/testimonial-4.png", w: 995, h: 787 },
@@ -480,7 +480,7 @@ export default function VideoFunnel() {
           ← החליקי לעוד הודעות
         </p>
         <p className="mt-1 text-center text-xs" style={{ color: "var(--text-muted)" }}>
-          השמות שונו כדי לשמור על פרטיות הלקוחות
+          חלק מהשמות שונו כדי לשמור על פרטיות הלקוחות
         </p>
       </section>
 

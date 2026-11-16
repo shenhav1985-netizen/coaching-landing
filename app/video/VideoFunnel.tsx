@@ -21,12 +21,12 @@ const WHATSAPP_SHOTS: Shot[] = [
     time: "9:24",
   },
   { name: "מיכל, 35", src: "/images/testimonials/testimonial-8.png", w: 1128, h: 745 },
-  { name: "נועה", src: "/images/testimonials/testimonial-1.png", w: 1075, h: 472 },
-  { name: "הילה", src: "/images/testimonials/testimonial-7.png", w: 1466, h: 630 },
-  { name: "רותם", src: "/images/testimonials/testimonial-4.png", w: 995, h: 787 },
+  { name: "נועה, 39", src: "/images/testimonials/testimonial-1.png", w: 1075, h: 472 },
+  { name: "הילה, 41", src: "/images/testimonials/testimonial-7.png", w: 1466, h: 630 },
+  { name: "רותם, 44", src: "/images/testimonials/testimonial-4.png", w: 995, h: 787 },
   { name: "מיכל, 35", src: "/images/testimonials/testimonial-2.png", w: 1096, h: 401 },
-  { name: "רונית", src: "/images/testimonials/testimonial-3.png", w: 1107, h: 529 },
-  { name: "מאיה", src: "/images/testimonials/testimonial-5.png", w: 1009, h: 323 },
+  { name: "עיינה", src: "/images/testimonials/testimonial-3.png", w: 1107, h: 529 },
+  { name: "מיכל, 37", src: "/images/testimonials/testimonial-5.png", w: 1009, h: 323 },
 ];
 
 // [פתיחה, סוף מודגש]
@@ -480,9 +480,6 @@ export default function VideoFunnel() {
             </div>
           ))}
         </div>
-        <p className="mt-2 text-center text-xs" style={{ color: "var(--text-muted)" }}>
-          חלק מהשמות שונו כדי לשמור על פרטיות הלקוחות
-        </p>
       </section>
 
       {/* ── 6. מה בסרטון ── */}

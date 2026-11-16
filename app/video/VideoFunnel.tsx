@@ -24,7 +24,7 @@ const WHATSAPP_SHOTS: Shot[] = [
   { name: "נועה", src: "/images/testimonials/testimonial-1.png", w: 1075, h: 472 },
   { name: "הילה", src: "/images/testimonials/testimonial-7.png", w: 1466, h: 630 },
   { name: "רותם", src: "/images/testimonials/testimonial-4.png", w: 995, h: 787 },
-  { name: "יעל", src: "/images/testimonials/testimonial-2.png", w: 1096, h: 401 },
+  { name: "מיכל, 35", src: "/images/testimonials/testimonial-2.png", w: 1096, h: 401 },
   { name: "רונית", src: "/images/testimonials/testimonial-3.png", w: 1107, h: 529 },
   { name: "מאיה", src: "/images/testimonials/testimonial-5.png", w: 1009, h: 323 },
 ];

@@ -1,6 +1,6 @@
 // הגדרות משותפות לדף הנחיתה (/video) ולדף התודה (/video/thanks)
 
-export const YOUTUBE_ID = "reZrRkTwDro";
+export const YOUTUBE_ID = "vfflAruJQrA";
 export const WHATSAPP_NUMBER = "972506409478";
 export const STORAGE_KEY = "shenhav-video-lead";
 export const THANKS_PATH = "/video/thanks";

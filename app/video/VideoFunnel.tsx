@@ -569,18 +569,18 @@ export default function VideoFunnel() {
             עכשיו הגיע הזמן שלך ללמוד את זה.
           </p>
         </div>
-        {/* תמונת המטבח, חיתוך מתון כדי שתישאר חדה */}
+        {/* תמונת דיוקן במטבח */}
         <div
           className="relative mx-auto mt-10 overflow-hidden"
           style={{ width: "min(380px, 86vw)", aspectRatio: "4 / 5", borderRadius: "28px", boxShadow: "0 18px 50px rgba(64,51,44,0.16)" }}
         >
           <Image
-            src="/images/coach-kitchen.jpg"
+            src="/images/coach-portrait.jpg"
             alt="שנהב בנימין"
             fill
             sizes="(max-width: 440px) 86vw, 380px"
             quality={90}
-            style={{ objectFit: "cover", transform: "scale(1.45)", transformOrigin: "51% 40%" }}
+            style={{ objectFit: "cover", objectPosition: "50% 30%" }}
           />
         </div>
 

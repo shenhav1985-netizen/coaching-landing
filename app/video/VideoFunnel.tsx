@@ -269,7 +269,7 @@ export default function VideoFunnel() {
 
   const CtaRow = () => (
     <div className="mt-10 flex justify-center">
-      <RoseButton onClick={goCta}>{unlocked ? "לסרטון ←" : "אני רוצה לראות את הסרטון ←"}</RoseButton>
+      <RoseButton onClick={goCta}>{unlocked ? "הסרטון כאן ←" : "אני רוצה לראות את הסרטון ←"}</RoseButton>
     </div>
   );
 
@@ -326,7 +326,7 @@ export default function VideoFunnel() {
 
           <div ref={formRef} className="mt-8 scroll-mt-6">
             {unlocked ? (
-              <RoseButton onClick={goCta}>לסרטון שלך ←</RoseButton>
+              <RoseButton onClick={goCta}>הסרטון כאן ←</RoseButton>
             ) : (
               <LeadForm onDone={handleDone} />
             )}
@@ -645,7 +645,7 @@ export default function VideoFunnel() {
           <div className="mt-8">
             {unlocked ? (
               <div className="flex justify-center">
-                <RoseButton onClick={goCta}>לסרטון שלך ←</RoseButton>
+                <RoseButton onClick={goCta}>הסרטון כאן ←</RoseButton>
               </div>
             ) : (
               <LeadForm onDone={handleDone} />

@@ -400,7 +400,7 @@ export default function VideoFunnel() {
       <Section>
         <div className="text-center">
           <H2>
-            קחי רגע <Marker>לדמיין</Marker>
+            תצללי איתי <Marker>לרגע הבא:</Marker>
           </H2>
         </div>
         <ul className="mt-8">
@@ -416,7 +416,7 @@ export default function VideoFunnel() {
           ))}
         </ul>
         <p className="mt-8 text-center font-extrabold" style={{ color: "var(--accent-dark)", fontSize: "1.25rem", lineHeight: 1.5 }}>
-          זה לא חלום. זה מה שקורה כשמבינים את המנגנון.
+          זה לא חלום. זה מה שאני והנשים שאני מלווה מרגישות היום, כשמבינים את המנגנון.
         </p>
         <CtaRow />
       </Section>

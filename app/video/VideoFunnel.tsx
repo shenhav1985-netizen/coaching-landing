@@ -274,7 +274,7 @@ export default function VideoFunnel() {
   );
 
   return (
-    <main className="relative overflow-hidden pb-10" style={{ background: "var(--bg-primary)" }}>
+    <main className="relative pb-10" style={{ background: "var(--bg-primary)", overflowX: "clip" }}>
       <div
         id={RAV_CONTAINER_ID}
         aria-hidden="true"
@@ -429,15 +429,17 @@ export default function VideoFunnel() {
             אל תאמיני רק לי. <Marker>תאמיני להן</Marker>
           </H2>
         </div>
-        <div
-          className="mt-6 flex items-start snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4"
-          style={{ scrollbarWidth: "none" }}
-        >
+        {/* ערימה: כל כרטיס נדבק למעלה בזמן הגלילה, והבא נערם מעליו */}
+        <div className="mx-auto mt-8 px-6" style={{ maxWidth: "460px" }}>
           {WHATSAPP_SHOTS.map((shot, i) => (
+            <div key={i} className="sticky mb-8" style={{ top: `${72 + i * 12}px` }}>
             <div
-              key={i}
-              className="shrink-0 snap-center overflow-hidden rounded-[20px]"
-              style={{ width: "min(82vw, 380px)", background: "#fff", boxShadow: "0 10px 30px rgba(64,51,44,0.12)" }}
+              className="overflow-hidden rounded-[20px]"
+              style={{
+                background: "#fff",
+                border: "1px solid rgba(64,51,44,0.06)",
+                boxShadow: "0 -6px 24px rgba(64,51,44,0.10), 0 14px 34px rgba(64,51,44,0.12)",
+              }}
             >
               <div className="flex items-center gap-3 px-4 py-3">
                 <span
@@ -461,7 +463,7 @@ export default function VideoFunnel() {
               </div>
               <div style={{ background: "#efe7de" }}>
               {"src" in shot ? (
-                <Image src={shot.src} alt="הודעה מלקוחה בוואטסאפ" width={shot.w} height={shot.h} className="h-auto w-full" sizes="380px" />
+                <Image src={shot.src} alt="הודעה מלקוחה בוואטסאפ" width={shot.w} height={shot.h} className="h-auto w-full" sizes="460px" />
               ) : (
                 <div className="p-3">
                   <div className="rounded-2xl rounded-tr-sm bg-white px-4 pt-3 pb-2" style={{ boxShadow: "0 1px 1px rgba(0,0,0,0.08)" }}>
@@ -474,12 +476,10 @@ export default function VideoFunnel() {
               )}
               </div>
             </div>
+            </div>
           ))}
         </div>
-        <p className="mt-2 text-center text-sm" style={{ color: "var(--text-muted)" }}>
-          ← החליקי לעוד הודעות
-        </p>
-        <p className="mt-1 text-center text-xs" style={{ color: "var(--text-muted)" }}>
+        <p className="mt-2 text-center text-xs" style={{ color: "var(--text-muted)" }}>
           חלק מהשמות שונו כדי לשמור על פרטיות הלקוחות
         </p>
       </section>

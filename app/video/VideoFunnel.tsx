@@ -5,25 +5,20 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { CREAM, DARK, ROSE, STORAGE_KEY, THANKS_PATH, waUrl } from "./shared";
 
-// ── הגדרות שנהב ───────────────────────────────────────────
-// המלצות אמיתיות: שם פרטי (ריק = "לקוחה בליווי אישי") + ציטוט
-const TESTIMONIALS: { name: string; quote: string }[] = [
-  {
-    name: "",
-    quote:
-      "זה לא רק המשקל שהיה לי תקוע. אני באמת מרגישה מעולה. אתמול דיברתי עם בעלי עלייך ואמרתי לו שזה לא דומה לשום תוכנית.",
-  },
-  {
-    name: "",
-    quote:
-      "מאז המפגש אני מרגישה הרבה יותר בשליטה. משהו בי טיפה יותר רגוע ומשוחרר. אתמול ממש הרגשתי מסודרת ולא מחפשת כלום בין לבין.",
-  },
-  {
-    name: "",
-    quote: "מודה על שפגשתי בך. הליווי שלך עכשיו זה כל כך מדויק למה שהייתי צריכה.",
-  },
+// צילומי מסך אמיתיים מוואטסאפ (public/images/testimonials)
+const WHATSAPP_SHOTS = [
+  { src: "/images/testimonials/testimonial-1.png", w: 1075, h: 472 },
+  { src: "/images/testimonials/testimonial-4.png", w: 995, h: 787 },
+  { src: "/images/testimonials/testimonial-2.png", w: 1096, h: 401 },
+  { src: "/images/testimonials/testimonial-3.png", w: 1107, h: 529 },
+  { src: "/images/testimonials/testimonial-5.png", w: 1009, h: 323 },
 ];
-// ─────────────────────────────────────────────────────────
+
+const STATS: [string, string][] = [
+  ["12 שנים", "במעגל, עד שיצאתי ממנו"],
+  ["49K", "עוקבות באינסטגרם"],
+  ["עד 7", "נשים בליווי אישי בו-זמנית"],
+];
 
 const SCRIPT_LINES = [
   "כל יום ראשון את צריכה לאסוף את עצמך מחדש, רק כדי לאכול מזין",
@@ -327,6 +322,19 @@ export default function VideoFunnel() {
               <LeadForm onDone={handleDone} />
             )}
           </div>
+
+          <div className="mt-10 grid grid-cols-3 gap-2 pt-8" style={{ borderTop: "1px solid rgba(247,238,232,0.14)" }}>
+            {STATS.map(([num, label]) => (
+              <div key={num}>
+                <p className="font-black" style={{ color: ROSE, fontSize: "clamp(1.5rem, 1.2rem + 1.5vw, 2rem)" }}>
+                  {num}
+                </p>
+                <p className="mt-1 text-xs font-bold" style={{ color: "rgba(247,238,232,0.65)", lineHeight: 1.4 }}>
+                  {label}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -340,59 +348,102 @@ export default function VideoFunnel() {
           {SCRIPT_LINES.map((line) => (
             <div
               key={line}
-              className="rounded-[20px] px-5 py-5"
+              className="flex gap-3 rounded-[20px] px-5 py-5"
               style={{ background: "#fff", boxShadow: "0 8px 28px rgba(64,51,44,0.08)", lineHeight: 1.7, fontSize: "1.05rem" }}
             >
-              {line}
+              <span style={{ color: "var(--accent)" }}>✦</span>
+              <span>{line}</span>
             </div>
           ))}
         </div>
         <p className="mt-8 font-bold" style={{ color: "var(--accent-dark)", fontSize: "1.3rem", lineHeight: 1.5 }}>
           ובפנים, תחושה שקטה שמשהו חייב להשתנות.
         </p>
-        <div className="mt-8 rounded-[22px] px-6 py-7" style={{ background: "var(--bg-secondary)" }}>
-          <p style={{ fontSize: "1.1rem", lineHeight: 1.7 }}>זה לא קורה כי את לא מתאמצת.</p>
-          <p className="mt-2 font-extrabold" style={{ fontSize: "1.25rem", lineHeight: 1.55 }}>
-            זה קורה כי את מנסה לפתור בעיה עמוקה <Marker>בעזרת הכלים הלא נכונים.</Marker>
-          </p>
-        </div>
       </Section>
 
-      {/* ── 3. מה הבנתי ── */}
-      <Section dark>
-        <Pill dark>מה הבנתי</Pill>
-        <H2 dark>
-          ליוויתי כבר עשרות נשים שעברו בדיוק את המעגל הזה. <span style={{ color: ROSE }}>ואת יודעת מה הבנתי?</span>
-        </H2>
-        <div className="mt-6 space-y-4" style={{ color: "rgba(247,238,232,0.82)", fontSize: "1.07rem", lineHeight: 1.8 }}>
-          <p>
-            את לא צריכה עוד דיאטה קפדנית. את צריכה דיוקים בתזונה, כאלה שמבטיחים לך שובע ואכילה טובה.
-          </p>
-          <p>
-            ובטח שלא את העצות המעצבנות האלה: "נסי להבין מה את באמת צריכה כשיש לך דחף למתוק. חיבוק? נשימה?"
+      {/* ── 3. את צודקת, זה לא הגיוני ── */}
+      <section style={{ background: DARK }}>
+        <div className="mx-auto px-6 pt-16" style={{ maxWidth: "580px" }}>
+          <H2 dark>
+            את צודקת.
             <br />
-            <span style={{ color: ROSE }}>(אחותך צריכה נשימה. את כרגע רוצה שוקולד.)</span>
-          </p>
-          <p className="font-bold" style={{ color: CREAM }}>
-            את פשוט צריכה להבין מה בדיוק מפעיל אותך שם, מאחורי הקלעים.
-          </p>
-          <p>
-            הסיבה שאת שוברת שוב ושוב היא ממש לא באג באופי שלך, והיא לא קשורה לכוח רצון. יש כאן מנגנון שלם שפשוט
-            מנהל אותך, ובסרטון אני מסבירה לך בדיוק איך הוא עובד.
-          </p>
+            <span style={{ color: ROSE }}>זה לא הגיוני.</span>
+          </H2>
         </div>
-        <div className="mt-8 rounded-[22px] px-6 py-6" style={{ border: "1px solid rgba(227,181,164,0.35)", background: "rgba(227,181,164,0.06)" }}>
-          <p style={{ color: "rgba(247,238,232,0.82)", lineHeight: 1.7 }}>
-            אני לא רוצה שתלמדי איך להילחם בעצמך או בדחף, או להתאפק בכוח.
-          </p>
-          <p className="mt-2 font-extrabold" style={{ color: ROSE, fontSize: "1.25rem" }}>
-            אני רוצה ללמד אותך איך להשתחרר מזה.
-          </p>
+        <div className="mx-auto mt-8" style={{ maxWidth: "580px", color: "rgba(247,238,232,0.85)", fontSize: "1.07rem", lineHeight: 1.75 }}>
+          <div className="px-6 py-5" style={{ borderTop: "1px solid rgba(247,238,232,0.12)" }}>
+            את יודעת מה לאכול. את יודעת כמה. את אפילו יודעת למה.
+            <br />
+            את מתחילה כל פעם מחדש, בכל הכוח, עם תוכנית מסודרת.
+          </div>
+          <div className="px-6 py-6 font-bold" style={{ background: "rgba(0,0,0,0.22)", color: ROSE }}>
+            אבל בינינו? כל בולמוס מרגיש כמו איבוד שליטה מוחלט.
+            <br />
+            ואחריו נשארים רק הסבל והאשמה.
+          </div>
+          <div className="px-6 py-5" style={{ borderBottom: "1px solid rgba(247,238,232,0.12)" }}>
+            וכל בוקר את שואלת את עצמך:
+            <br />
+            &quot;מה לא בסדר איתי?&quot;
+          </div>
+          <div className="px-6 pt-7 pb-16 font-extrabold" style={{ color: ROSE, fontSize: "1.2rem", lineHeight: 1.6 }}>
+            הבעיה היא לא שאת לא מתאמצת מספיק.
+            <br />
+            הבעיה היא שאת מנסה לפתור בעיה עמוקה בעזרת הכלים הלא נכונים.
+          </div>
         </div>
+      </section>
+
+      {/* ── 4. קחי רגע לדמיין ── */}
+      <Section>
+        <div className="text-center">
+          <H2>
+            קחי רגע <Marker>לדמיין</Marker>
+          </H2>
+        </div>
+        <ul className="mt-8">
+          {IMAGINE_LINES.map((line) => (
+            <li
+              key={line}
+              className="flex gap-3 py-4"
+              style={{ borderBottom: "1px solid var(--border-subtle)", lineHeight: 1.7, fontSize: "1.05rem" }}
+            >
+              <span className="font-black" style={{ color: "var(--accent-dark)" }}>✓</span>
+              <span>{line}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-8 text-center font-extrabold" style={{ color: "var(--accent-dark)", fontSize: "1.25rem", lineHeight: 1.5 }}>
+          זה לא חלום. זה מה שקורה כשמבינים את המנגנון.
+        </p>
         <CtaRow />
       </Section>
 
-      {/* ── 4. מה בסרטון ── */}
+      {/* ── 5. מה הן כותבות לי (צילומי וואטסאפ) ── */}
+      <section className="py-14" style={{ background: "var(--bg-secondary)" }}>
+        <div className="mx-auto px-6" style={{ maxWidth: "580px" }}>
+          <Pill>מה הן כותבות לי</Pill>
+        </div>
+        <div
+          className="mt-6 flex items-start snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4"
+          style={{ scrollbarWidth: "none" }}
+        >
+          {WHATSAPP_SHOTS.map((shot) => (
+            <div
+              key={shot.src}
+              className="shrink-0 snap-center overflow-hidden rounded-[20px]"
+              style={{ width: "min(82vw, 380px)", background: "#efe7de", boxShadow: "0 10px 30px rgba(64,51,44,0.12)" }}
+            >
+              <Image src={shot.src} alt="הודעה מלקוחה בוואטסאפ" width={shot.w} height={shot.h} className="h-auto w-full" sizes="380px" />
+            </div>
+          ))}
+        </div>
+        <p className="mt-2 text-center text-sm" style={{ color: "var(--text-muted)" }}>
+          ← החליקי לעוד הודעות
+        </p>
+      </section>
+
+      {/* ── 6. מה בסרטון ── */}
       <Section>
         <Pill>הסרטון</Pill>
         <H2>
@@ -420,101 +471,82 @@ export default function VideoFunnel() {
         <CtaRow />
       </Section>
 
-      {/* ── 5. תדמייני ── */}
+      {/* ── 7. איך אני חושבת ── */}
       <Section dark>
-        <Pill dark>תדמייני רגע</Pill>
-        <div className="mt-6 space-y-4">
-          {IMAGINE_LINES.map((line) => (
-            <p key={line} className="flex gap-3" style={{ color: "rgba(247,238,232,0.85)", fontSize: "1.08rem", lineHeight: 1.7 }}>
-              <span style={{ color: ROSE }}>✦</span>
-              <span>{line}</span>
-            </p>
-          ))}
+        <div className="text-center">
+          <p className="text-sm font-bold tracking-[0.25em]" style={{ color: ROSE }}>
+            הגישה שלי
+          </p>
+          <H2 dark>איך אני חושבת, ולמה זה עובד</H2>
         </div>
-        <p className="mt-8 font-extrabold" style={{ color: CREAM, fontSize: "1.4rem", lineHeight: 1.5 }}>
-          את קלילה, את מרגישה טוב, את נראית טוב. <span style={{ color: ROSE }}>את חופשייה.</span>
-        </p>
-        <p className="mt-4" style={{ color: "rgba(247,238,232,0.75)", lineHeight: 1.7 }}>
-          זה ממש לא חלום רחוק. זה מה שקורה כשמבינים מה באמת מנהל אותנו.
-        </p>
-        <p className="mt-4 font-bold" style={{ color: CREAM }}>
-          10 דקות. זה כל מה שזה לוקח.
-        </p>
+        <div className="mt-6 space-y-4" style={{ color: "rgba(247,238,232,0.82)", fontSize: "1.07rem", lineHeight: 1.85 }}>
+          <p>
+            את לא צריכה עוד דיאטה קפדנית. את צריכה <strong style={{ color: ROSE }}>דיוקים בתזונה</strong>, כאלה שמבטיחים לך
+            שובע ואכילה טובה.
+          </p>
+          <p>
+            ובטח שלא את העצות המעצבנות האלה: &quot;נסי להבין מה את באמת צריכה כשיש לך דחף למתוק. חיבוק? נשימה?&quot;{" "}
+            <span style={{ color: ROSE }}>(אחותך צריכה נשימה. את כרגע רוצה שוקולד.)</span>
+          </p>
+          <p>
+            הסיבה שאת שוברת שוב ושוב היא לא באג באופי שלך, והיא לא קשורה לכוח רצון. יש{" "}
+            <strong style={{ color: CREAM }}>מנגנון שלם שמנהל אותך מאחורי הקלעים</strong>. ברגע שמבינים אותו, מפסיקים
+            להילחם בו.
+          </p>
+          <p>
+            אני לא מלמדת להתאפק בכוח. <strong style={{ color: ROSE }}>אני מלמדת להשתחרר מזה</strong>, ולחזור להיות המנהלת של
+            הגוף שלך.
+          </p>
+        </div>
         <CtaRow />
       </Section>
 
-      {/* ── 6. המלצות ── */}
+      {/* ── 8. נעים להכיר ── */}
       <Section>
-        <Pill>מה הן אומרות</Pill>
+        <p className="text-sm font-bold tracking-[0.25em]" style={{ color: "var(--accent)" }}>
+          נעים להכיר
+        </p>
         <H2>
-          אל תאמיני רק לי. <Marker>תאמיני להן</Marker>
+          12 שנים הייתי <Marker>בדיוק איפה שאת עכשיו</Marker>
         </H2>
-        <div className="mt-8 space-y-5">
-          {TESTIMONIALS.map((t, i) => (
-            <figure key={i} className="rounded-[22px] px-6 py-6" style={{ background: "#fff", boxShadow: "0 10px 34px rgba(64,51,44,0.09)" }}>
-              <blockquote style={{ lineHeight: 1.75, fontSize: "1.03rem" }}>"{t.quote}"</blockquote>
-              <figcaption className="mt-4 pt-4 flex items-center gap-3" style={{ borderTop: "1px solid var(--border-subtle)" }}>
-                <span
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full font-extrabold text-white"
-                  style={{ background: "linear-gradient(135deg, #8b6156, #d9a593)" }}
-                  aria-hidden
-                >
-                  {t.name ? t.name[0] : "🤍"}
-                </span>
-                <span>
-                  <span className="block font-bold" style={{ color: "var(--accent-dark)" }}>
-                    {t.name || "לקוחה בליווי אישי"}
-                  </span>
-                  <span className="block text-sm" style={{ color: "var(--text-muted)" }}>
-                    בליווי אישי עם שנהב
-                  </span>
-                </span>
-              </figcaption>
-            </figure>
-          ))}
+        <p className="mt-2 text-sm font-bold" style={{ color: "var(--text-muted)" }}>
+          שנהב בנימין · מומחית לבריאות טבעית, רפואה תזונתית ושחרור מאכילה רגשית
+        </p>
+        <div className="mt-6 space-y-4" style={{ color: "var(--text-secondary)", fontSize: "1.06rem", lineHeight: 1.85 }}>
+          <p>
+            12 שנים הייתי במעגל הדיאטות. מתחילה מלאת התרגשות, יורדת, וחוזרת לנקודת ההתחלה. שוב ושוב.
+          </p>
+          <p>
+            המעגל הזה פיתח אצלי אכילה רגשית שלא הצלחתי לשלוט בה, ואיתה סבל נורא. הייתי בטוחה שלעולם לא אצא מזה. שנועדתי
+            להיות כל החיים במאבק עם האוכל והמשקל. האמנתי שזה הגורל שלי.
+          </p>
+          <p className="font-bold" style={{ color: "var(--text-primary)" }}>
+            ואז הבנתי משהו ששינה הכל: האכילה לא הייתה הבעיה. היא הייתה סימפטום של משהו אחר, שביקש ריפוי.
+          </p>
+          <p>
+            כשהבנתי איך מערכת ההפעלה שלי עובדת, הירידה במשקל קרתה באופן טבעי. ואני שומרת עליה עד היום, בלי מאבק.
+          </p>
+          <p className="font-extrabold" style={{ color: "var(--accent-dark)", fontSize: "1.2rem" }}>
+            עכשיו הגיע הזמן שלך ללמוד את זה.
+          </p>
         </div>
-      </Section>
-
-      {/* ── 7. מי אני ── */}
-      <Section>
-        <Pill>נעים להכיר</Pill>
-        <H2>
-          אני שנהב בנימין, <Marker>מומחית לבריאות טבעית, רפואה תזונתית ושחרור מאכילה רגשית</Marker>
-        </H2>
-        <div
-          className="relative mx-auto mt-8 overflow-hidden"
-          style={{
-            width: "min(380px, 86vw)",
-            aspectRatio: "4 / 5",
-            borderRadius: "28px",
-            WebkitMaskImage: "linear-gradient(180deg, #000 80%, transparent 100%)",
-            maskImage: "linear-gradient(180deg, #000 80%, transparent 100%)",
-          }}
-        >
-          <Image
-            src="/images/coach-kitchen.jpg"
-            alt="שנהב בנימין"
-            fill
-            sizes="760px"
-            style={{ objectFit: "cover", objectPosition: "50% 32%", transform: "scale(2.1)", transformOrigin: "51% 36%" }}
+        <div className="relative mx-auto mt-10" style={{ width: "min(340px, 80vw)", aspectRatio: "1 / 1" }}>
+          <div
+            className="absolute inset-0 rounded-full"
+            style={{ background: "linear-gradient(135deg, #8b6156, #d9a593)", transform: "translate(-10px, 10px)" }}
           />
-        </div>
-        <div className="-mt-4 relative space-y-4" style={{ color: "var(--text-secondary)", fontSize: "1.06rem", lineHeight: 1.8 }}>
-          <p>
-            בגיל 18 עשיתי את הדיאטה הראשונה שלי. 12 שנים אחר כך הבנתי שלא רציתי רק לרדת במשקל.{" "}
-            <strong style={{ color: "var(--text-primary)" }}>רציתי להיוולד מחדש. האוכל היה הדלת.</strong>
-          </p>
-          <p>
-            את לא מבינה כמה אני מכירה את זה מקרוב. אני יודעת בדיוק מה עובר עלייך, כי עברתי את זה בעצמי, ויצאתי.
-            וזה בדיוק מה שלימד אותי מה באמת עובד.
-          </p>
-          <p>עד היום ליוויתי עשרות נשים לצאת מהמעגל הזה, ולחזור להיות בעלות הבית של עצמן.</p>
-          <p className="font-bold" style={{ color: "var(--accent-dark)", fontSize: "1.15rem" }}>
-            ומבטיחה לך, אפשר לצאת מזה.
-          </p>
+          <div className="absolute inset-0 overflow-hidden rounded-full" style={{ border: "5px solid #fff", boxShadow: "0 18px 50px rgba(64,51,44,0.18)" }}>
+            <Image
+              src="/images/coach-kitchen.jpg"
+              alt="שנהב בנימין"
+              fill
+              sizes="680px"
+              style={{ objectFit: "cover", transform: "scale(2.4)", transformOrigin: "51% 33%" }}
+            />
+          </div>
         </div>
 
-        <div className="mt-10 rounded-[22px] px-6 py-6" style={{ background: "#fff", border: "1px solid var(--border-accent)", boxShadow: "0 8px 28px rgba(64,51,44,0.07)" }}>
+        <div className="mt-12 rounded-[22px] px-6 py-6" style={{ background: "#fff", border: "1px solid var(--border-accent)", boxShadow: "0 8px 28px rgba(64,51,44,0.07)" }}>
           <p className="font-extrabold" style={{ color: "var(--accent-dark)", fontSize: "1.2rem" }}>
             למה רק 7?
           </p>
@@ -523,23 +555,6 @@ export default function VideoFunnel() {
             מלאים, את נכנסת לרשימת המתנה, ואני חוזרת אלייך כשמתפנה מקום.
           </p>
         </div>
-      </Section>
-
-      {/* ── 8. אם הגעת עד לכאן ── */}
-      <Section dark>
-        <Pill dark>אם הגעת עד לכאן</Pill>
-        <H2 dark>
-          משהו בטקסט הזה <span style={{ color: ROSE }}>נגע בך.</span>
-        </H2>
-        <div className="mt-6 space-y-4" style={{ color: "rgba(247,238,232,0.82)", fontSize: "1.07rem", lineHeight: 1.8 }}>
-          <p>
-            כל מה שרצית זה שמישהי סוף סוף תלמד אותך איך לצאת מהמעגל הזה, ותחזיר אותך להיות המנהלת של הגוף שלך.
-          </p>
-          <p className="font-bold" style={{ color: CREAM }}>
-            את יכולה להשתחרר מהמעגל הזה, אחת ולתמיד. הסרטון הזה הוא הצעד הראשון שלך.
-          </p>
-        </div>
-        <CtaRow />
       </Section>
 
       {/* ── 9. שאלות ── */}
@@ -573,12 +588,19 @@ export default function VideoFunnel() {
         </div>
       </Section>
 
-      {/* ── 10. טופס סיום ── */}
+      {/* ── 10. אם הגעת עד לכאן + טופס ── */}
       <Section dark>
         <div className="text-center">
+          <Pill dark>אם הגעת עד לכאן</Pill>
           <H2 dark>
-            10 דקות. <span style={{ color: ROSE }}>הצעד הראשון שלך.</span>
+            משהו בטקסט הזה <span style={{ color: ROSE }}>נגע בך.</span>
           </H2>
+          <div className="mt-6 space-y-3" style={{ color: "rgba(247,238,232,0.82)", fontSize: "1.07rem", lineHeight: 1.8 }}>
+            <p>כל מה שרצית זה שמישהי סוף סוף תלמד אותך איך לצאת מהמעגל הזה, ותחזיר אותך להיות המנהלת של הגוף שלך.</p>
+            <p className="font-bold" style={{ color: CREAM }}>
+              את יכולה להשתחרר מהמעגל הזה, אחת ולתמיד. הסרטון הזה הוא הצעד הראשון שלך.
+            </p>
+          </div>
           <div className="mt-8">
             {unlocked ? (
               <div className="flex justify-center">
@@ -609,7 +631,6 @@ export default function VideoFunnel() {
           <path d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 7L3 29l6.4-2c2 1.1 4.3 1.7 6.6 1.7 7.2 0 13-5.7 13-12.8S23.2 3 16 3zm0 23.4c-2.1 0-4.1-.6-5.9-1.7l-.4-.3-3.8 1.2 1.2-3.7-.3-.4c-1.2-1.8-1.9-3.9-1.9-6 0-5.9 4.9-10.7 11-10.7s11 4.8 11 10.7-4.9 10.9-10.9 10.9zm6-8c-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.8.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.3-.7.1-.3-.2-1.4-.5-2.7-1.7-1-.9-1.7-2-1.9-2.3-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.5 0-.6-.1-.2-.8-1.8-1-2.5-.3-.7-.5-.6-.8-.6h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.3 1.4 3.6c.2.2 2.4 3.6 5.8 5 .8.4 1.4.6 1.9.7.8.3 1.5.2 2.1.1.6-.1 2-.8 2.2-1.6.3-.8.3-1.5.2-1.6-.1-.2-.3-.3-.6-.4z" />
         </svg>
       </a>
-
     </main>
   );
 }

@@ -9,6 +9,11 @@ import { CREAM, DARK, ROSE, STORAGE_KEY, THANKS_PATH, waUrl } from "./shared";
 // הודעה קצרה שצילום המסך שלה קטן מדי לקריאה מוצגת כטקסט, בבועה בסגנון וואטסאפ
 type Shot = { name: string } & ({ src: string; w: number; h: number } | { text: string; time: string });
 const WHATSAPP_SHOTS: Shot[] = [
+  {
+    name: "אלכס, 36",
+    text: "היום בעלי הביא קופסת שוקולדים משהו טוב, זה אפילו לא העסיק אותי. אני עדיין אוהבת שוקולד, אבל הוא לא המנהל שלי. יש לי שקט בראש",
+    time: "10:27",
+  },
   { name: "אורית, 54", src: "/images/testimonials/testimonial-9.png", w: 1531, h: 712 },
   {
     name: "ליאת, 43",

@@ -7,19 +7,20 @@ import { CREAM, DARK, ROSE, STORAGE_KEY, THANKS_PATH, waUrl } from "./shared";
 
 // צילומי מסך אמיתיים מוואטסאפ (public/images/testimonials)
 // הודעה קצרה שצילום המסך שלה קטן מדי לקריאה מוצגת כטקסט, בבועה בסגנון וואטסאפ
-type Shot = { src: string; w: number; h: number } | { text: string; time: string };
+type Shot = { name: string } & ({ src: string; w: number; h: number } | { text: string; time: string });
 const WHATSAPP_SHOTS: Shot[] = [
   {
+    name: "צליל",
     text: "יקירתי אני משתפת אותך שנשקלתי היום ואני כבר על 64 וזה פשוט מדהים. ומה שהכי מפתיע אותי זה שזה כבר לא המטרה העיקרית. אני פשוט יותר מודעת ופחות נלחמת, ומפתיעה את עצמי כל יום מחדש. תודה עלייך",
     time: "16:05",
   },
-  { src: "/images/testimonials/testimonial-8.png", w: 1128, h: 745 },
-  { src: "/images/testimonials/testimonial-1.png", w: 1075, h: 472 },
-  { src: "/images/testimonials/testimonial-7.png", w: 1466, h: 630 },
-  { src: "/images/testimonials/testimonial-4.png", w: 995, h: 787 },
-  { src: "/images/testimonials/testimonial-2.png", w: 1096, h: 401 },
-  { src: "/images/testimonials/testimonial-3.png", w: 1107, h: 529 },
-  { src: "/images/testimonials/testimonial-5.png", w: 1009, h: 323 },
+  { name: "ליאת", src: "/images/testimonials/testimonial-8.png", w: 1128, h: 745 },
+  { name: "נועה", src: "/images/testimonials/testimonial-1.png", w: 1075, h: 472 },
+  { name: "הילה", src: "/images/testimonials/testimonial-7.png", w: 1466, h: 630 },
+  { name: "דנה", src: "/images/testimonials/testimonial-4.png", w: 995, h: 787 },
+  { name: "יעל", src: "/images/testimonials/testimonial-2.png", w: 1096, h: 401 },
+  { name: "רונית", src: "/images/testimonials/testimonial-3.png", w: 1107, h: 529 },
+  { name: "מאיה", src: "/images/testimonials/testimonial-5.png", w: 1009, h: 323 },
 ];
 
 const SCRIPT_LINES = [
@@ -413,6 +414,9 @@ export default function VideoFunnel() {
       <section className="py-14" style={{ background: "var(--bg-secondary)" }}>
         <div className="mx-auto px-6" style={{ maxWidth: "580px" }}>
           <Pill>מה הן כותבות לי</Pill>
+          <H2>
+            אל תאמיני רק לי. <Marker>תאמיני להן</Marker>
+          </H2>
         </div>
         <div
           className="mt-6 flex items-start snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4"
@@ -422,8 +426,29 @@ export default function VideoFunnel() {
             <div
               key={i}
               className="shrink-0 snap-center overflow-hidden rounded-[20px]"
-              style={{ width: "min(82vw, 380px)", background: "#efe7de", boxShadow: "0 10px 30px rgba(64,51,44,0.12)" }}
+              style={{ width: "min(82vw, 380px)", background: "#fff", boxShadow: "0 10px 30px rgba(64,51,44,0.12)" }}
             >
+              <div className="flex items-center gap-3 px-4 py-3">
+                <span
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-extrabold text-white"
+                  style={{ background: "linear-gradient(135deg, #8b6156, #d9a593)" }}
+                  aria-hidden
+                >
+                  {shot.name[0]}
+                </span>
+                <span className="flex-1">
+                  <span className="block font-bold" style={{ color: "var(--accent-dark)" }}>
+                    {shot.name}
+                  </span>
+                  <span className="block text-xs" style={{ color: "var(--text-muted)" }}>
+                    בליווי אישי עם שנהב
+                  </span>
+                </span>
+                <span className="text-sm" style={{ color: "#d9a593", letterSpacing: "1px" }} aria-label="5 כוכבים">
+                  ★★★★★
+                </span>
+              </div>
+              <div style={{ background: "#efe7de" }}>
               {"src" in shot ? (
                 <Image src={shot.src} alt="הודעה מלקוחה בוואטסאפ" width={shot.w} height={shot.h} className="h-auto w-full" sizes="380px" />
               ) : (
@@ -436,11 +461,15 @@ export default function VideoFunnel() {
                   </div>
                 </div>
               )}
+              </div>
             </div>
           ))}
         </div>
         <p className="mt-2 text-center text-sm" style={{ color: "var(--text-muted)" }}>
           ← החליקי לעוד הודעות
+        </p>
+        <p className="mt-1 text-center text-xs" style={{ color: "var(--text-muted)" }}>
+          השמות שונו כדי לשמור על פרטיות הלקוחות
         </p>
       </section>
 

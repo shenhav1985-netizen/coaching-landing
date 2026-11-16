@@ -569,20 +569,21 @@ export default function VideoFunnel() {
             עכשיו הגיע הזמן שלך ללמוד את זה.
           </p>
         </div>
-        <div className="relative mx-auto mt-10" style={{ width: "min(340px, 80vw)", aspectRatio: "1 / 1" }}>
+        {/* תמונה בלי רקע מול עיגול בצבע המותג, הראש יוצא מעל העיגול */}
+        <div className="relative mx-auto mt-10 overflow-hidden" style={{ width: "min(380px, 86vw)", aspectRatio: "935 / 1040" }}>
           <div
-            className="absolute inset-0 rounded-full"
-            style={{ background: "linear-gradient(135deg, #8b6156, #d9a593)", transform: "translate(-10px, 10px)" }}
+            className="absolute bottom-0 left-0 right-0 rounded-full"
+            style={{ aspectRatio: "1 / 1", background: "radial-gradient(circle at 35% 30%, #d9a593 0%, #b98a78 45%, #8b6156 100%)" }}
           />
-          <div className="absolute inset-0 overflow-hidden rounded-full" style={{ border: "5px solid #fff", boxShadow: "0 18px 50px rgba(64,51,44,0.18)" }}>
-            <Image
-              src="/images/coach-kitchen.jpg"
-              alt="שנהב בנימין"
-              fill
-              sizes="680px"
-              style={{ objectFit: "cover", transform: "scale(2.4)", transformOrigin: "51% 33%" }}
-            />
-          </div>
+          <Image
+            src="/images/shenhav-cutout.png"
+            alt="שנהב בנימין"
+            width={935}
+            height={1521}
+            sizes="(max-width: 440px) 86vw, 380px"
+            className="absolute left-0 right-0 h-auto w-full"
+            style={{ top: "-11.5%" }}
+          />
         </div>
 
         <div className="mt-12 rounded-[22px] px-6 py-6" style={{ background: "#fff", border: "1px solid var(--border-accent)", boxShadow: "0 8px 28px rgba(64,51,44,0.07)" }}>

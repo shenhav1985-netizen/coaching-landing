@@ -22,12 +22,6 @@ const WHATSAPP_SHOTS: Shot[] = [
   { src: "/images/testimonials/testimonial-5.png", w: 1009, h: 323 },
 ];
 
-const STATS: [string, string][] = [
-  ["12 שנים", "במעגל, עד שיצאתי ממנו"],
-  ["49K", "עוקבות באינסטגרם"],
-  ["עד 7", "נשים בליווי אישי בו-זמנית"],
-];
-
 const SCRIPT_LINES = [
   "כל יום ראשון את צריכה לאסוף את עצמך מחדש, רק כדי לאכול מזין",
   "את פותחת את הארון וכועסת על עצמך, כי שלושה ג'ינסים הפכו צמודים מאוד",
@@ -331,18 +325,6 @@ export default function VideoFunnel() {
             )}
           </div>
 
-          <div className="mt-10 grid grid-cols-3 gap-2 pt-8" style={{ borderTop: "1px solid rgba(247,238,232,0.14)" }}>
-            {STATS.map(([num, label]) => (
-              <div key={num}>
-                <p className="font-black" style={{ color: ROSE, fontSize: "clamp(1.5rem, 1.2rem + 1.5vw, 2rem)" }}>
-                  {num}
-                </p>
-                <p className="mt-1 text-xs font-bold" style={{ color: "rgba(247,238,232,0.65)", lineHeight: 1.4 }}>
-                  {label}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 

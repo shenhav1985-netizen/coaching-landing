@@ -569,20 +569,18 @@ export default function VideoFunnel() {
             עכשיו הגיע הזמן שלך ללמוד את זה.
           </p>
         </div>
-        {/* תמונה בלי רקע מול עיגול בצבע המותג, הראש יוצא מעל העיגול */}
-        <div className="relative mx-auto mt-10 overflow-hidden" style={{ width: "min(380px, 86vw)", aspectRatio: "935 / 1040" }}>
-          <div
-            className="absolute bottom-0 left-0 right-0 rounded-full"
-            style={{ aspectRatio: "1 / 1", background: "radial-gradient(circle at 35% 30%, #d9a593 0%, #b98a78 45%, #8b6156 100%)" }}
-          />
+        {/* תמונת המטבח, חיתוך מתון כדי שתישאר חדה */}
+        <div
+          className="relative mx-auto mt-10 overflow-hidden"
+          style={{ width: "min(380px, 86vw)", aspectRatio: "4 / 5", borderRadius: "28px", boxShadow: "0 18px 50px rgba(64,51,44,0.16)" }}
+        >
           <Image
-            src="/images/shenhav-cutout.png"
+            src="/images/coach-kitchen.jpg"
             alt="שנהב בנימין"
-            width={935}
-            height={1521}
+            fill
             sizes="(max-width: 440px) 86vw, 380px"
-            className="absolute left-0 right-0 h-auto w-full"
-            style={{ top: "-11.5%" }}
+            quality={90}
+            style={{ objectFit: "cover", transform: "scale(1.45)", transformOrigin: "51% 40%" }}
           />
         </div>
 

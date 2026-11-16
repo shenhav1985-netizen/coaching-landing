@@ -6,8 +6,16 @@ import { motion } from "framer-motion";
 import { CREAM, DARK, ROSE, STORAGE_KEY, THANKS_PATH, waUrl } from "./shared";
 
 // צילומי מסך אמיתיים מוואטסאפ (public/images/testimonials)
-const WHATSAPP_SHOTS = [
+// הודעה קצרה שצילום המסך שלה קטן מדי לקריאה מוצגת כטקסט, בבועה בסגנון וואטסאפ
+type Shot = { src: string; w: number; h: number } | { text: string; time: string };
+const WHATSAPP_SHOTS: Shot[] = [
+  {
+    text: "יקירתי אני משתפת אותך שנשקלתי היום ואני כבר על 64 וזה פשוט מדהים. ומה שהכי מפתיע אותי זה שזה כבר לא המטרה העיקרית. אני פשוט יותר מודעת ופחות נלחמת, ומפתיעה את עצמי כל יום מחדש. תודה עלייך",
+    time: "16:05",
+  },
+  { src: "/images/testimonials/testimonial-8.png", w: 1128, h: 745 },
   { src: "/images/testimonials/testimonial-1.png", w: 1075, h: 472 },
+  { src: "/images/testimonials/testimonial-7.png", w: 1466, h: 630 },
   { src: "/images/testimonials/testimonial-4.png", w: 995, h: 787 },
   { src: "/images/testimonials/testimonial-2.png", w: 1096, h: 401 },
   { src: "/images/testimonials/testimonial-3.png", w: 1107, h: 529 },
@@ -428,13 +436,24 @@ export default function VideoFunnel() {
           className="mt-6 flex items-start snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4"
           style={{ scrollbarWidth: "none" }}
         >
-          {WHATSAPP_SHOTS.map((shot) => (
+          {WHATSAPP_SHOTS.map((shot, i) => (
             <div
-              key={shot.src}
+              key={i}
               className="shrink-0 snap-center overflow-hidden rounded-[20px]"
               style={{ width: "min(82vw, 380px)", background: "#efe7de", boxShadow: "0 10px 30px rgba(64,51,44,0.12)" }}
             >
-              <Image src={shot.src} alt="הודעה מלקוחה בוואטסאפ" width={shot.w} height={shot.h} className="h-auto w-full" sizes="380px" />
+              {"src" in shot ? (
+                <Image src={shot.src} alt="הודעה מלקוחה בוואטסאפ" width={shot.w} height={shot.h} className="h-auto w-full" sizes="380px" />
+              ) : (
+                <div className="p-3">
+                  <div className="rounded-2xl rounded-tr-sm bg-white px-4 pt-3 pb-2" style={{ boxShadow: "0 1px 1px rgba(0,0,0,0.08)" }}>
+                    <p style={{ fontSize: "1.05rem", lineHeight: 1.6, color: "#111" }}>{shot.text}</p>
+                    <p className="mt-1 text-left text-xs" style={{ color: "#8a8a8a" }}>
+                      {shot.time}
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>

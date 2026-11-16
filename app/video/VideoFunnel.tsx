@@ -381,7 +381,7 @@ export default function VideoFunnel() {
           <div className="px-6 py-6 font-bold" style={{ background: "rgba(0,0,0,0.22)", color: ROSE }}>
             ובינינו? את פשוט מרגישה שאיבדת שליטה. גם על ההחלטות שלך, וגם על הגוף שלך.
             <br />
-            וכל פסטיבל אכילה משאיר אחריו רק סבל ואשמה.
+            וכל נפילה משאירה אחריה רק סבל ואשמה.
           </div>
           <div className="px-6 py-5" style={{ borderBottom: "1px solid rgba(247,238,232,0.12)" }}>
             וכל בוקר את שואלת את עצמך:

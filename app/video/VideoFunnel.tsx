@@ -23,11 +23,12 @@ const WHATSAPP_SHOTS: Shot[] = [
   { name: "מאיה", src: "/images/testimonials/testimonial-5.png", w: 1009, h: 323 },
 ];
 
-const SCRIPT_LINES = [
-  "כל יום ראשון את צריכה לאסוף את עצמך מחדש, רק כדי לאכול מזין",
-  "את פותחת את הארון וכועסת על עצמך, כי שלושה ג'ינסים הפכו צמודים מאוד",
-  "את עולה על המשקל, והמספר עליו מחליט איך תרגישי כל היום",
-  "ובערב \"רק ביס אחד\" הופך לבולמוס. אכילה בלי עצירה, ואחריה הסבל והאשמה",
+// [פתיחה, סוף מודגש]
+const SCRIPT_LINES: [string, string][] = [
+  ["כל יום ראשון את מגרדת את עצמך מהרצפה ומתחילה מחדש, בשיא המוטיבציה. ", "ואחרי כמה ימים, נפילה גדולה."],
+  ["כל היום את מוקפדת, כל השבוע את מדוגמת. ", "ובערב, או בסוף השבוע, הכול קורס מול המקרר."],
+  ["את נכנסת למטבח כל כמה דקות, בלי מנוחה. ", "ואוכלת גם כשאת בכלל לא רעבה."],
+  ["הג'ינס רחב שבוע אחד, וצמוד חודש אחרי. ", "ואת כועסת על עצמך בלי סוף."],
 ];
 
 const VIDEO_POINTS: [string, string][] = [
@@ -336,14 +337,17 @@ export default function VideoFunnel() {
           את בטח מכירה את התסריט הזה <Marker>מקרוב</Marker>
         </H2>
         <div className="mt-8 space-y-4">
-          {SCRIPT_LINES.map((line) => (
+          {SCRIPT_LINES.map(([line, punch]) => (
             <div
               key={line}
               className="flex gap-3 rounded-[20px] px-5 py-5"
               style={{ background: "#fff", boxShadow: "0 8px 28px rgba(64,51,44,0.08)", lineHeight: 1.7, fontSize: "1.05rem" }}
             >
               <span style={{ color: "var(--accent)" }}>✦</span>
-              <span>{line}</span>
+              <span>
+                {line}
+                <strong style={{ color: "var(--accent-dark)" }}>{punch}</strong>
+              </span>
             </div>
           ))}
         </div>

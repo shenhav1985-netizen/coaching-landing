@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { CREAM, DARK, ROSE, STORAGE_KEY, THANKS_PATH, waUrl } from "./shared";
+import { CREAM, DARK, PHONE_KEY, ROSE, STORAGE_KEY, THANKS_PATH, waUrl } from "./shared";
 
 // צילומי מסך אמיתיים מוואטסאפ (public/images/testimonials)
 // הודעה קצרה שצילום המסך שלה קטן מדי לקריאה מוצגת כטקסט, בבועה בסגנון וואטסאפ
@@ -179,6 +179,7 @@ function LeadForm({ onDone, dark = true }: { onDone: (name: string) => void; dar
     setSending(true);
     try {
       localStorage.setItem(STORAGE_KEY, n);
+      localStorage.setItem(PHONE_KEY, digits);
     } catch {}
     if (!submitToRav(n, digits)) console.error("ravpage form not loaded; lead not saved");
     // רב מסר מעביר אחרי הרשמה לדף התודה. אם זה לוקח זמן, עוברים בעצמנו

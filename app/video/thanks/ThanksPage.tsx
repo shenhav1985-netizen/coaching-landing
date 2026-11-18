@@ -2,7 +2,7 @@
 
 import { ReactNode, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { BOOKING_EMBED, BOOKING_LINK, DARK, OTHER, QUESTIONS, STORAGE_KEY, YOUTUBE_ID, waUrl } from "../shared";
+import { ANSWERS_ENDPOINT, BOOKING_EMBED, BOOKING_LINK, DARK, OTHER, PHONE_KEY, QUESTIONS, STORAGE_KEY, YOUTUBE_ID, waUrl } from "../shared";
 
 function RoseButton({ children, onClick, disabled = false }: { children: ReactNode; onClick?: () => void; disabled?: boolean }) {
   return (
@@ -26,6 +26,7 @@ function RoseButton({ children, onClick, disabled = false }: { children: ReactNo
 
 export default function ThanksPage() {
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<string[][]>([]);
   const [otherText, setOtherText] = useState("");
@@ -34,6 +35,7 @@ export default function ThanksPage() {
   useEffect(() => {
     try {
       setName(localStorage.getItem(STORAGE_KEY) ?? "");
+      setPhone(localStorage.getItem(PHONE_KEY) ?? "");
     } catch {}
   }, []);
 
@@ -60,6 +62,27 @@ export default function ThanksPage() {
   const answersText = QUESTIONS.map((item, i) => `${item.q}\n← ${formatAnswer(i)}`).join("\n\n");
   const hello = `היי שנהב, אני ${name || "מהדף של הסרטון"} 🤍`;
   const otherTimeLink = waUrl(`${hello}\nאשמח לשיחת היכרות, אבל צריכה מועד אחר.\n\nהתשובות שלי:\n\n${answersText}`);
+
+  // שולח את התשובות למייל של שנהב, בלי שהנרשמת צריכה לעשות משהו נוסף
+  function submitAnswers() {
+    setSubmitted(true);
+    const payload: Record<string, string> = {
+      _subject: `ליד חדש ענה על השאלון: ${name || "ללא שם"}`,
+      _template: "table",
+      _captcha: "false",
+      "שם": name || "לא ידוע",
+      "טלפון": phone || "לא ידוע",
+    };
+    QUESTIONS.forEach((item, i) => {
+      payload[item.q] = formatAnswer(i);
+    });
+    fetch(ANSWERS_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(payload),
+      keepalive: true,
+    }).catch(() => {});
+  }
 
   const showQuestionButton = q.multi || current.includes(OTHER) || isLast;
 
@@ -170,7 +193,7 @@ export default function ThanksPage() {
                       <div className="mt-6 flex justify-center">
                         <RoseButton
                           disabled={!canContinue}
-                          onClick={() => (isLast ? setSubmitted(true) : setStep(step + 1))}
+                          onClick={() => (isLast ? submitAnswers() : setStep(step + 1))}
                         >
                           {isLast ? "שלחי" : "המשך ←"}
                         </RoseButton>

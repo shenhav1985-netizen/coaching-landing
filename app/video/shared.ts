@@ -3,6 +3,10 @@
 export const YOUTUBE_ID = "vfflAruJQrA";
 export const WHATSAPP_NUMBER = "972506409478";
 export const STORAGE_KEY = "shenhav-video-lead";
+export const PHONE_KEY = "shenhav-video-phone";
+
+// התשובות לשאלון נשלחות במייל לשנהב דרך FormSubmit (אחרי אישור חד-פעמי במייל)
+export const ANSWERS_ENDPOINT = "https://formsubmit.co/ajax/shenhav1985@gmail.com";
 export const THANKS_PATH = "/video/thanks";
 
 export const DARK = "#2a201b";

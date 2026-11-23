@@ -27,7 +27,8 @@ function bad(message: string, status = 400) {
 }
 
 export async function POST(request: Request) {
-  const key = process.env.ANTHROPIC_API_KEY;
+  // מנקים רווחים, ירידות שורה וסימני כיווניות (RTL) שנכנסים לפעמים בהדבקה
+  const key = process.env.ANTHROPIC_API_KEY?.replace(/[^\x21-\x7E]/g, "");
   if (!key) return bad("האפליקציה עוד לא מחוברת. נסי שוב מאוחר יותר.", 503);
 
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
@@ -85,8 +86,8 @@ export async function POST(request: Request) {
       .trim();
     if (!text) return bad("משהו השתבש בתשובה. נסי לשלוח שוב.", 502);
     return Response.json({ text });
-  } catch {
-    console.error("anthropic request failed");
+  } catch (e) {
+    console.error("anthropic request failed", e instanceof Error ? `${e.name}: ${e.message.slice(0, 160)}` : "");
     return bad("משהו השתבש בתשובה. נסי לשלוח שוב.", 502);
   }
 }
